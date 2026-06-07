@@ -26,7 +26,7 @@
     <div class="header-logo"><img src="https://files.catbox.moe/0hkqh4.png"></div>
 
     <div class="add-form">
-        <h3 id="formTitle">➕ إضافة شارة جديدة</h3>
+        <h3 id="formTitle">➕ إضافة شارة الجديدة</h3>
         <input type="hidden" id="editId">
         <input type="text" id="showTitle" placeholder="اسم المسلسل">
         <input type="url" id="showImg" placeholder="رابط صورة الكرت (اختياري)">
@@ -74,14 +74,18 @@
         isEditing = true;
     }
 
-    function render() {
+function render() {
         document.getElementById('fav-sharat').innerHTML = myCustomSharat.map(item => `
-            <div class="card">
-                <img src="${item.img}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
-                <p style="font-weight:700;">${item.title}</p>
-                <a href="${item.link}" target="_blank" style="color:#ffd700; text-decoration:none;">استماع الشارة</a><br>
-                <button class="btn-edit" onclick="editShow(${item.id})">تعديل</button>
-                <button class="btn-remove" onclick="removeShow(${item.id})">حذف</button>
+            <div class="card" style="position: relative;">
+                <a href="${item.link}" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+                    <img src="${item.img}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
+                    <p style="font-weight:700; margin: 10px 0;">${item.title}</p>
+                </a>
+                
+                <div style="position: relative; z-index: 10;">
+                    <button class="btn-edit" onclick="editShow(${item.id})">تعديل</button>
+                    <button class="btn-remove" onclick="removeShow(${item.id})">حذف</button>
+                </div>
             </div>
         `).join('');
     }
