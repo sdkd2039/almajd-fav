@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>شارات دراما المجد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Tajawal', sans-serif; margin: 0; padding: 20px; }
+        * { font-family: 'Tajawal', sans-serif !important; }
+        body { background-color: #0a0a0a; color: #ffffff; margin: 0; padding: 20px; }
         .header-logo { text-align: right; margin-bottom: 20px; }
         .header-logo img { width: 80px; }
+        
         .add-form { background: #141414; border: 1px solid #ffd700; border-radius: 12px; padding: 20px; margin: 0 auto 30px auto; max-width: 500px; }
         input { width: 90%; padding: 10px; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; text-align: center; margin-bottom: 10px; }
+        
         .btn { background: #ffd700; color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .btn-edit { background: #444; color: #fff; padding: 5px 10px; margin-top: 5px; }
-        .btn-remove { background: #ff4d4d; color: white; padding: 5px 10px; }
+        .btn-edit { background: #444; color: #fff; padding: 5px 10px; margin-top: 5px; cursor: pointer; border: none; border-radius: 4px; }
+        .btn-remove { background: #ff4d4d; color: white; padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; }
+        
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
         .card { background: #141414; border: 1px solid #252525; border-radius: 12px; padding: 10px; text-align: center; }
     </style>
@@ -24,8 +29,8 @@
         <h3 id="formTitle">➕ إضافة شارة جديدة</h3>
         <input type="hidden" id="editId">
         <input type="text" id="showTitle" placeholder="اسم المسلسل">
-        <input type="url" id="showImg" placeholder="رابط صورة الكرت">
-        <input type="url" id="showLink" placeholder="رابط الشارة (موقع المجد فقط)">
+        <input type="url" id="showImg" placeholder="رابط صورة الكرت (اختياري)">
+        <input type="url" id="showLink" placeholder="رابط الشارة (موقع شارات دراما المجد فقط)">
         <button class="btn" onclick="saveShow()" id="saveBtn">💾 حفظ في المكتبة</button>
     </div>
 
@@ -42,7 +47,7 @@
         const img = document.getElementById('showImg').value || "https://via.placeholder.com/160x110/222222/ffffff?text=Drama";
 
         if (!title || !link || !link.includes("sites.google.com/view/almajddrama/")) {
-            alert("تأكد من الاسم ورابط المجد الصحيح!");
+            alert("تأكد من الاسم ورابط شارات دراما المجد الصحيح!");
             return;
         }
 
@@ -51,7 +56,6 @@
             isEditing = false;
             document.getElementById('formTitle').innerText = "➕ إضافة شارة جديدة";
         } else {
-            // منع التكرار
             if(myCustomSharat.find(i => i.link === link)) { alert("هذه الشارة موجودة مسبقاً!"); return; }
             myCustomSharat.push({ id: Date.now(), title, img, link });
         }
@@ -73,11 +77,11 @@
     function render() {
         document.getElementById('fav-sharat').innerHTML = myCustomSharat.map(item => `
             <div class="card">
-                <img src="${item.img}" style="width:100%; height:110px; object-fit:cover;">
-                <p>${item.title}</p>
-                <a href="${item.link}" target="_blank" style="color:#ffd700;">مشاهدة</a><br>
-                <button class="btn btn-edit" onclick="editShow(${item.id})">تعديل</button>
-                <button class="btn btn-remove" onclick="removeShow(${item.id})">حذف</button>
+                <img src="${item.img}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
+                <p style="font-weight:700;">${item.title}</p>
+                <a href="${item.link}" target="_blank" style="color:#ffd700; text-decoration:none;">استماع الشارة</a><br>
+                <button class="btn-edit" onclick="editShow(${item.id})">تعديل</button>
+                <button class="btn-remove" onclick="removeShow(${item.id})">حذف</button>
             </div>
         `).join('');
     }
