@@ -9,11 +9,17 @@
         body { background-color: #0a0a0a; color: #ffffff; margin: 0; padding: 20px; }
         .add-form { background: #141414; border: 1px solid #ffd700; border-radius: 12px; padding: 20px; margin: 0 auto 30px auto; max-width: 500px; }
         input { width: 90%; padding: 10px; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; text-align: center; margin-bottom: 10px; }
-        .btn { background: #ffd700; color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .file-upload { background: #333; color: #fff; padding: 10px; border-radius: 6px; width: 90%; margin-bottom: 10px; cursor: pointer; }
+        .btn { background: #ffd700; color: #000; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 90%; }
+        
+        /* شكل الأزرار الاحترافي */
+        .card-actions { display: flex; gap: 5px; justify-content: center; margin-top: 10px; }
+        .btn-action { padding: 6px 12px; border-radius: 5px; border: none; cursor: pointer; font-size: 12px; transition: 0.2s; }
+        .btn-edit { background: #333; color: #ffd700; border: 1px solid #ffd700; }
+        .btn-remove { background: #333; color: #ff4d4d; border: 1px solid #ff4d4d; }
+        .btn-action:hover { opacity: 0.8; transform: translateY(-2px); }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
         .card { background: #141414; border: 1px solid #252525; border-radius: 12px; padding: 10px; text-align: center; transition: 0.3s; }
-        .card:hover { border-color: #ff9800; }
     </style>
 </head>
 <body>
@@ -22,11 +28,9 @@
         <h3 id="formTitle">➕ إضافة شارة الجديدة</h3>
         <input type="hidden" id="editId">
         <input type="text" id="showTitle" placeholder="اسم المسلسل">
-        
-        <input type="file" id="fileInput" class="file-upload" accept="image/*" onchange="uploadToCatbox()">
+        <input type="file" id="fileInput" style="background:#222; color:#fff; width:90%; padding:5px; margin-bottom:10px;" onchange="uploadToCatbox()">
         <input type="url" id="showImg" placeholder="رابط صورة الكرت (اختياري)">
-        
-        <input type="url" id="showLink" placeholder="رابط الشارة (موقع شارات دراما المجد)">
+        <input type="url" id="showLink" placeholder="رابط شارة (موقع شارات دراما المجد)">
         <button class="btn" onclick="saveShow()">💾 حفظ في المكتبة</button>
     </div>
 
@@ -34,31 +38,36 @@
 
 <script>
     let myCustomSharat = JSON.parse(localStorage.getItem('userCustomSharat')) || [];
-    let isEditing = false;
 
-    // وظيفة الرفع المباشر لـ Catbox
     async function uploadToCatbox() {
         const fileInput = document.getElementById('fileInput');
         const imgInput = document.getElementById('showImg');
-        if (fileInput.files.length === 0) return;
-
-        imgInput.value = "جاري الرفع...";
+        if (!fileInput.files[0]) return;
         
+        imgInput.value = "⏳ جاري الرفع...";
         const formData = new FormData();
         formData.append("fileToUpload", fileInput.files[0]);
         formData.append("reqtype", "fileupload");
 
         try {
-            const response = await fetch("https://catbox.moe/user/api.php", {
-                method: "POST",
-                body: formData
-            });
-            const url = await response.text();
-            imgInput.value = url;
-        } catch (error) {
-            alert("حدث خطأ أثناء الرفع!");
-            imgInput.value = "";
-        }
+            const response = await fetch("https://catbox.moe/user/api.php", { method: "POST", body: formData });
+            imgInput.value = await response.text();
+        } catch (e) { alert("خطأ في الرفع"); imgInput.value = ""; }
+    }
+
+    function render() {
+        document.getElementById('fav-sharat').innerHTML = myCustomSharat.map(item => `
+            <div class="card">
+                <a href="${item.link}" target="_blank" style="text-decoration:none; color:inherit;">
+                    <img src="${item.img}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
+                    <p style="font-weight:700;">${item.title}</p>
+                </a>
+                <div class="card-actions">
+                    <button class="btn-action btn-edit" onclick="editShow(${item.id})">تعديل</button>
+                    <button class="btn-action btn-remove" onclick="removeShow(${item.id})">حذف</button>
+                </div>
+            </div>
+        `).join('');
     }
 
     function saveShow() {
@@ -66,34 +75,12 @@
         const title = document.getElementById('showTitle').value;
         const link = document.getElementById('showLink').value;
         const img = document.getElementById('showImg').value;
-
-        if (!title || !link.includes("sites.google.com/view/almajddrama/")) {
-            alert("تأكد من البيانات ورابط موقع المجد!");
-            return;
-        }
-
-        if (isEditing) {
-            myCustomSharat = myCustomSharat.map(item => item.id == id ? {id, title, img, link} : item);
-            isEditing = false;
-        } else {
-            myCustomSharat.push({ id, title, img, link });
-        }
-
+        
+        // تحديث أو إضافة
+        myCustomSharat = myCustomSharat.filter(i => i.id != id);
+        myCustomSharat.push({ id, title, img, link });
         localStorage.setItem('userCustomSharat', JSON.stringify(myCustomSharat));
         render(); clearForm();
-    }
-
-    function render() {
-        document.getElementById('fav-sharat').innerHTML = myCustomSharat.map(item => `
-            <div class="card">
-                <a href="${item.link}" target="_blank" style="text-decoration: none; color: inherit;">
-                    <img src="${item.img}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
-                    <p style="font-weight:700;">${item.title}</p>
-                </a>
-                <button onclick="editShow(${item.id})">تعديل</button>
-                <button onclick="removeShow(${item.id})">حذف</button>
-            </div>
-        `).join('');
     }
 
     function editShow(id) {
@@ -102,7 +89,6 @@
         document.getElementById('showTitle').value = item.title;
         document.getElementById('showImg').value = item.img;
         document.getElementById('showLink').value = item.link;
-        isEditing = true;
     }
 
     function removeShow(id) {
