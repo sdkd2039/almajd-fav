@@ -2,104 +2,61 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>شارات دراما المجد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { font-family: 'Tajawal', sans-serif !important; }
-        body { background-color: #0a0a0a; color: #ffffff; margin: 0; padding: 20px; }
-        .header-logo { text-align: center; margin-bottom: 20px; }
-        .header-logo img { width: 120px; }
-        
-        .add-form { background: #141414; border: 1px solid #ffd700; border-radius: 12px; padding: 20px; margin: 0 auto 30px auto; max-width: 500px; }
-        input { width: 90%; padding: 10px; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; text-align: center; margin-bottom: 10px; }
-        .btn { background: #ffd700; color: #000; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 90%; }
-        
-        /* تنسيق المربعات المتناسق */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
-        .card { background: #141414; border: 1px solid #252525; border-radius: 12px; padding: 10px; text-align: center; transition: 0.3s; height: 220px; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; }
-        .card:hover { border-color: #ffd700; background: #1a1a1a; cursor: pointer; }
-        .card:active { background: #ffd700; transform: scale(0.95); }
-        .card:active p { color: #000 !important; }
-        
-        .card-actions { margin-top: auto; display: flex; gap: 5px; justify-content: center; z-index: 10; }
-        .btn-action { padding: 5px 10px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; }
-        .btn-edit { background: #333; color: #ffd700; }
-        .btn-remove { background: #333; color: #ff4d4d; }
+        body { background: #0a0a0a; color: #fff; font-family: sans-serif; padding: 20px; }
+        .box { max-width: 800px; margin: auto; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #ffd700; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+        th { background: #222; color: #ffd700; }
+        input { width: 90%; background: transparent; border: none; color: #fff; text-align: center; }
+        button { width: 100%; padding: 15px; background: #ffd700; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        textarea { width: 100%; height: 200px; margin-top: 20px; background: #000; color: #0f0; padding: 10px; border: 1px solid #444; }
     </style>
 </head>
 <body>
 
-    <div class="header-logo"><img src="https://files.catbox.moe/0hkqh4.png" alt="شعار دراما المجد"></div>
-
-    <div class="add-form">
-        <h3 id="formTitle" style="color:#ffd700;">➕ إضافة شارة الجديدة</h3>
-        <input type="hidden" id="editId">
-        <input type="text" id="showTitle" placeholder="اسم المسلسل">
-        <input type="url" id="showImg" placeholder="رابط صورة الكرت">
-        
-        <a href="https://catbox.moe/" target="_blank" style="display:block; margin-bottom:10px; color:#ffd700; text-decoration:none; font-size: 13px;">📷 اضغط هنا لرفع الصورة (ثم الصق الرابط أدناه)</a>
-        
-        <input type="url" id="showLink" placeholder="رابط الشارة (موقع شارات دراما المجد)">
-        <button class="btn" onclick="saveShow()">💾 حفظ في المكتبة</button>
-    </div>
-
-    <div class="grid" id="fav-sharat"></div>
+<div class="box">
+    <h3 style="text-align:center;">محرك إدخال الـ 200 مسلسل</h3>
+    <table id="dataTable">
+        <thead>
+            <tr><th>اسم المسلسل</th><th>رابط الصورة</th><th>رابط الشارة</th></tr>
+        </thead>
+        <tbody id="tableBody">
+            </tbody>
+    </table>
+    <button onclick="copyAll()">🔄 تجميع البيانات ونسخها تلقائياً</button>
+    <textarea id="output" readonly placeholder="هنا ستظهر كل بياناتك بعد الضغط على الزر..."></textarea>
+</div>
 
 <script>
-    let myCustomSharat = JSON.parse(localStorage.getItem('userCustomSharat')) || [];
+    // إنشاء 200 صف للجدول
+    const tbody = document.getElementById('tableBody');
+    for(let i=0; i<200; i++) {
+        tbody.innerHTML += `<tr>
+            <td><input type="text" class="title" placeholder="اسم"></td>
+            <td><input type="text" class="img" placeholder="صورة"></td>
+            <td><input type="text" class="link" placeholder="رابط"></td>
+        </tr>`;
+    }
 
-    function saveShow() {
-        const id = document.getElementById('editId').value || Date.now();
-        const title = document.getElementById('showTitle').value;
-        const link = document.getElementById('showLink').value;
-        const img = document.getElementById('showImg').value || "https://via.placeholder.com/160x110/222222/ffd700?text=Drama";
+    function copyAll() {
+        const rows = document.querySelectorAll('#tableBody tr');
+        let data = [];
+        rows.forEach(row => {
+            const title = row.querySelector('.title').value;
+            const img = row.querySelector('.img').value;
+            const link = row.querySelector('.link').value;
+            if(title && link) data.push({title, img, link});
+        });
+
+        const output = JSON.stringify(data, null, 4);
+        const textarea = document.getElementById('output');
+        textarea.value = `const myShows = ${output};`;
         
-        if (!title || !link) { alert("تأكد من إدخال الاسم والرابط!"); return; }
-        
-        myCustomSharat = myCustomSharat.filter(i => i.id != id);
-        myCustomSharat.push({ id, title, img, link });
-        localStorage.setItem('userCustomSharat', JSON.stringify(myCustomSharat));
-        render(); clearForm();
+        textarea.select();
+        document.execCommand('copy');
+        alert("تم التجميع والنسخ! الآن أرسلها لي هنا.");
     }
-
-    function render() {
-        document.getElementById('fav-sharat').innerHTML = myCustomSharat.map(item => `
-            <div class="card" onclick="window.open('${item.link}', '_blank')">
-                <img src="${item.img}" alt="صورة المسلسل">
-                <p style="font-weight:700; margin: 10px 0;">${item.title}</p>
-                <div class="card-actions">
-                    <button class="btn-action btn-edit" onclick="event.stopPropagation(); editShow(${item.id})">تعديل</button>
-                    <button class="btn-action btn-remove" onclick="event.stopPropagation(); removeShow(${item.id})">حذف</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function editShow(id) {
-        const item = myCustomSharat.find(i => i.id == id);
-        document.getElementById('editId').value = item.id;
-        document.getElementById('showTitle').value = item.title;
-        document.getElementById('showImg').value = item.img;
-        document.getElementById('showLink').value = item.link;
-        document.getElementById('formTitle').innerText = "✏️ تعديل البيانات";
-    }
-
-    function removeShow(id) {
-        myCustomSharat = myCustomSharat.filter(i => i.id != id);
-        localStorage.setItem('userCustomSharat', JSON.stringify(myCustomSharat));
-        render();
-    }
-
-    function clearForm() {
-        document.getElementById('showTitle').value = "";
-        document.getElementById('showImg').value = "";
-        document.getElementById('showLink').value = "";
-        document.getElementById('editId').value = "";
-        document.getElementById('formTitle').innerText = "➕ إضافة شارة الجديدة";
-    }
-
-    render();
 </script>
 </body>
 </html>
