@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المفضلة - شارات دراما المجد</title>
+    <title>شارات دراما المجد - المفضلة</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -19,62 +19,160 @@
             --fav-color: #ef4444; 
             --text-muted: #94a3b8; 
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; }
-        header { text-align: center; margin-bottom: 40px; }
-        header h1 { font-size: 2.5rem; font-weight: 900; color: #0ea5e9; margin-bottom: 10px; text-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .controls { display: flex; flex-direction: column; gap: 15px; max-width: 700px; margin: 0 auto 40px auto; align-items: center; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 15px; }
+        
+        header { 
+            text-align: center; 
+            margin-bottom: 25px; 
+        }
+        header h1 { 
+            font-size: 2rem; 
+            font-weight: 900; 
+            color: #0ea5e9; 
+            margin-bottom: 5px; 
+        }
+
+        .controls { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            max-width: 600px; 
+            margin: 0 auto 25px auto; 
+            align-items: center; 
+        }
         .search-container { position: relative; width: 100%; }
-        .search-container input { width: 100%; padding: 15px 45px 15px 15px; border-radius: 12px; border: 2px solid #334155; background-color: var(--card-bg); color: var(--text-color); font-size: 1.1rem; outline: none; transition: all 0.3s ease; }
-        .search-container input:focus { border-color: var(--primary-color); box-shadow: 0 0 10px rgba(2, 132, 199, 0.5); }
-        .search-container i { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--text-muted); font-size: 1.2rem; }
+        .search-container input { 
+            width: 100%; 
+            padding: 14px 45px 14px 15px; 
+            border-radius: 12px; 
+            border: 2px solid #334155; 
+            background-color: var(--card-bg); 
+            color: var(--text-color); 
+            font-size: 1.1rem; 
+            outline: none; 
+            transition: all 0.3s ease; 
+        }
+        .search-container input:focus { 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.4); 
+        }
+        .search-container i { 
+            position: absolute; 
+            top: 50%; 
+            right: 15px; 
+            transform: translateY(-50%); 
+            color: var(--text-muted); 
+            font-size: 1.2rem; 
+        }
+
         .filter-buttons { display: flex; gap: 10px; }
-        .btn { padding: 10px 25px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-size: 1rem; }
+        .btn { 
+            padding: 8px 20px; 
+            border-radius: 8px; 
+            border: none; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            font-size: 0.95rem; 
+        }
         .btn-primary { background-color: var(--primary-color); color: #fff; }
         .btn-primary:hover, .btn-primary.active { background-color: var(--primary-hover); }
         .btn-outline { background-color: transparent; border: 2px solid #334155; color: var(--text-color); }
         .btn-outline:hover, .btn-outline.active { background-color: #334155; border-color: #475569; }
-        .series-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
-        .card { background-color: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); }
-        .card-img-container { width: 100%; height: 180px; background-color: #0f172a; }
+
+        .series-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 20px; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+        }
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 14px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-3px); }
+        .card-img-container { width: 100%; height: 150px; background-color: #0f172a; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-content { padding: 20px; display: flex; flex-direction: column; gap: 15px; flex-grow: 1; }
-        .card-title { font-size: 1.25rem; font-weight: 700; line-height: 1.4; }
-        .card-actions { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .btn-watch { background-color: #10b981; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        
+        .card-content { 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            flex-grow: 1; 
+        }
+        .card-title { font-size: 1.15rem; font-weight: 700; line-height: 1.4; }
+        .card-actions { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: auto; 
+        }
+        
+        .btn-watch { 
+            background-color: #10b981; 
+            color: white; 
+            padding: 7px 14px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
         .btn-watch:hover { background-color: #059669; }
-        .btn-fav { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; transition: color 0.2s, transform 0.2s; }
-        .btn-fav:hover { transform: scale(1.1); }
+        
+        .btn-fav { 
+            background: none; 
+            border: none; 
+            color: var(--text-muted); 
+            font-size: 1.3rem; 
+            cursor: pointer; 
+            transition: color 0.2s; 
+        }
         .btn-fav.is-fav { color: var(--fav-color); }
-        .no-results { text-align: center; grid-column: 1 / -1; padding: 40px; color: var(--text-muted); font-size: 1.2rem; }
-        .loading { text-align: center; grid-column: 1 / -1; padding: 40px; font-size: 1.5rem; color: #0ea5e9; }
+        
+        .no-results { 
+            text-align: center; 
+            grid-column: 1 / -1; 
+            padding: 20px; 
+            color: var(--text-muted); 
+            font-size: 1.05rem; 
+        }
+        .loading { text-align: center; grid-column: 1 / -1; padding: 20px; font-size: 1.2rem; color: #0ea5e9; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>أرشيف دراما المجد</h1>
-        <p style="color: var(--text-muted);">البحث والمفضلة التلقائية مباشرة من ملفك</p>
+        <h1>شارات دراما المجد - المفضلة</h1>
     </header>
 
     <div class="controls">
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="ابحث عن اسم المسلسل...">
+            <input type="text" id="searchInput" placeholder="اكتب اسم المسلسل للبحث واستماعه...">
         </div>
         <div class="filter-buttons">
             <button class="btn btn-primary active" id="btnAll">كل المسلسلات</button>
-            <button class="btn btn-outline" id="btnFavOnly"><i class="fa-solid fa-heart" style="color: var(--fav-color); margin-left: 5px;"></i> المفضلة (<span id="favCount">0</span>)</button>
+            <button class="btn btn-outline" id="btnFavOnly"><i class="fa-solid fa-heart" style="color: var(--fav-color); margin-left: 4px;"></i> المفضلة (<span id="favCount">0</span>)</button>
         </div>
     </div>
 
     <div class="series-grid" id="seriesGrid">
-        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل كافة المسلسلات من قوقل شيت...</div>
+        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري ربط البيانات مع قوقل شيت...</div>
     </div>
 
     <script>
-        // تم وضع معرف ملفك هنا مباشرة واختصار الوقت عليك!
+        // سحب مباشر وآمن من معرف قوقل شيت الخاص بك
         const sheetId = '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U';
         const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -88,7 +186,7 @@
         const favCountLabel = document.getElementById('favCount');
         let currentFilter = 'all';
 
-        // جلب البيانات تلقائياً بلمحة بصر
+        // جلب البيانات خلف الكواليس لتكون جاهزة فوراً
         fetch(base)
             .then(res => res.text())
             .then(data => {
@@ -96,16 +194,16 @@
                 const json = JSON.parse(temp);
                 const rows = json.table.rows;
                 
-                // قراءة الأعمدة الثلاثة بالترتيب الآتي من ملفك: الاسم، الشارة، الصورة
                 seriesData = rows.map(row => ({
                     name: row.c[0] ? row.c[0].v : '',
                     watchLink: row.c[1] ? row.c[1].v : '#',
                     imgLink: row.c[2] ? row.c[2].v : ''
                 })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
 
+                // عرض الصفحة نظيفة بالبداية تطلب الكتابة
                 renderCards();
             }).catch(err => {
-                seriesGrid.innerHTML = '<div class="no-results">تأكد من أنك قمت بجعل خيار مشاركة الملف: "أي شخص لديه الرابط يمكنه العرض".</div>';
+                seriesGrid.innerHTML = '<div class="no-results">تأكد من ضبط مشاركة الشيت لـ "أي شخص لديه الرابط".</div>';
             });
 
         function updateFavCount() { favCountLabel.textContent = favorites.length; }
@@ -113,6 +211,14 @@
         function renderCards() {
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
+
+            // الفكرة الذكية: إذا كان الفلتر "الكل" والمستخدم لم يكتب شيء بالبحث، لا تعرض مسلسلات لتقليل حمولة قوقل سايت
+            if (currentFilter === 'all' && searchTerm === '') {
+                seriesGrid.innerHTML = '<div class="no-results"><i class="fa-solid fa-arrow-up"></i> اكتب اسم المسلسل في الأعلى وسيظهر لك فوراً!</div>';
+                updateFavCount();
+                return;
+            }
+
             const filteredData = seriesData.filter(item => {
                 const matchesSearch = item.name && item.name.toLowerCase().includes(searchTerm);
                 const matchesFilter = currentFilter === 'all' || favorites.includes(item.name);
@@ -120,7 +226,7 @@
             });
 
             if (filteredData.length === 0) {
-                seriesGrid.innerHTML = '<div class="no-results">لا توجد نتائج مطابقة لبحثك.</div>';
+                seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج.</div>';
                 return;
             }
 
@@ -154,8 +260,20 @@
         }
 
         searchInput.addEventListener('input', renderCards);
-        btnAll.addEventListener('click', () => { currentFilter = 'all'; btnAll.classList.replace('btn-outline', 'btn-primary'); btnFavOnly.classList.replace('btn-primary', 'btn-outline'); renderCards(); });
-        btnFavOnly.addEventListener('click', () => { currentFilter = 'fav'; btnFavOnly.classList.replace('btn-outline', 'btn-primary'); btnAll.classList.replace('btn-primary', 'btn-outline'); renderCards(); });
+        
+        btnAll.addEventListener('click', () => { 
+            currentFilter = 'all'; 
+            btnAll.classList.replace('btn-outline', 'btn-primary'); 
+            btnFavOnly.classList.replace('btn-primary', 'btn-outline'); 
+            renderCards(); 
+        });
+        
+        btnFavOnly.addEventListener('click', () => { 
+            currentFilter = 'fav'; 
+            btnFavOnly.classList.replace('btn-outline', 'btn-primary'); 
+            btnAll.classList.replace('btn-primary', 'btn-outline'); 
+            renderCards(); 
+        });
 
         updateFavCount();
     </script>
