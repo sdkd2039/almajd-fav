@@ -23,14 +23,17 @@
         body { background-color: var(--bg-color); color: var(--text-color); padding: 15px; }
         
         header { 
-            text-align: center; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 25px; 
+            padding-top: 10px;
         }
-        header h1 { 
-            font-size: 2rem; 
-            font-weight: 900; 
-            color: #0ea5e9; 
-            margin-bottom: 5px; 
+        /* ضبط وتوسيط الشعار بشكل فخم */
+        .logo {
+            max-width: 220px;
+            height: auto;
+            object-fit: contain;
         }
 
         .controls { 
@@ -153,7 +156,7 @@
 <body>
 
     <header>
-        <h1>شارات دراما المجد - المفضلة</h1>
+        <img src="https://files.catbox.moe/ieu2w1.png" alt="شارات دراما المجد - المفضلة" class="logo">
     </header>
 
     <div class="controls">
@@ -172,7 +175,6 @@
     </div>
 
     <script>
-        // سحب مباشر وآمن من معرف قوقل شيت الخاص بك
         const sheetId = '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U';
         const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -186,7 +188,6 @@
         const favCountLabel = document.getElementById('favCount');
         let currentFilter = 'all';
 
-        // جلب البيانات خلف الكواليس لتكون جاهزة فوراً
         fetch(base)
             .then(res => res.text())
             .then(data => {
@@ -200,7 +201,6 @@
                     imgLink: row.c[2] ? row.c[2].v : ''
                 })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
 
-                // عرض الصفحة نظيفة بالبداية تطلب الكتابة
                 renderCards();
             }).catch(err => {
                 seriesGrid.innerHTML = '<div class="no-results">تأكد من ضبط مشاركة الشيت لـ "أي شخص لديه الرابط".</div>';
@@ -212,7 +212,6 @@
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
-            // الفكرة الذكية: إذا كان الفلتر "الكل" والمستخدم لم يكتب شيء بالبحث، لا تعرض مسلسلات لتقليل حمولة قوقل سايت
             if (currentFilter === 'all' && searchTerm === '') {
                 seriesGrid.innerHTML = '<div class="no-results"><i class="fa-solid fa-arrow-up"></i> اكتب اسم المسلسل في الأعلى وسيظهر لك فوراً!</div>';
                 updateFavCount();
