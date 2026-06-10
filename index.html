@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ارات دراما المجد - المفضلة</title>
+    <title>شارات دراما المجد - المفضلة</title>
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -90,7 +90,7 @@
         .btn-primary { background-color: var(--primary-color); color: #fff; }
         .btn-outline { background-color: transparent; border: 2px solid #334155; color: var(--text-color); }
 
-        /* ستايل اللابتوب الثابت الموحد لجميع الأجهزة */
+        /* ستايل اللابتوب الموحد (3 أعمدة دائماً) */
         .series-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -148,6 +148,30 @@
         }
         .btn-fav.is-fav { color: var(--fav-color); }
 
+        /* تعديل وحل مشكلة محاذاة النصوص والرسائل لتأخذ عرض الشاشة بالكامل وتتوسطها */
+        .no-results { 
+            text-align: center; 
+            grid-column: 1 / -1; /* يمتد على كامل العرض */
+            width: 100%;
+            padding: 40px 15px; 
+            color: var(--text-muted); 
+            font-size: 1rem; 
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .loading { 
+            text-align: center; 
+            grid-column: 1 / -1; 
+            width: 100%;
+            padding: 30px; 
+            font-size: 1rem; 
+            color: #0ea5e9; 
+        }
+
         @media (min-width: 900px) {
             .series-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
             .card-img-container { height: 140px; }
@@ -163,6 +187,7 @@
             .btn-watch { padding: 4px 6px; font-size: 0.65rem; gap: 2px; }
             .btn-fav { font-size: 0.95rem; }
             .logo { max-width: 130px; }
+            .no-results { font-size: 0.9rem; padding: 30px 10px; }
         }
     </style>
 </head>
@@ -189,7 +214,6 @@
 
     <script>
         const sheetId = '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U';
-        // تم تنظيف الرابط وإعادتة للوضع المستقر السريع
         const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
         let seriesData = [];
@@ -227,7 +251,11 @@
             const searchTerm = searchInput.value.trim().toLowerCase();
 
             if (currentFilter === 'all' && searchTerm === '') {
-                seriesGrid.innerHTML = '<div class="no-results"><i class="fa-solid fa-arrow-up"></i> اكتب اسم المسلسل في الأعلى وسيظهر لك فوراً!</div>';
+                seriesGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fa-solid fa-arrow-up" style="color: var(--primary-color); font-size: 1.3rem;"></i>
+                        <span>اكتب اسم المسلسل في الأعلى وسيظهر لك فوراً!</span>
+                    </div>`;
                 updateFavCount();
                 return;
             }
