@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شارات دراما المجد - المفضلة</title>
+    <title>ارات دراما المجد - المفضلة</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -20,18 +25,23 @@
             --text-muted: #94a3b8; 
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding: 15px; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            padding: 15px; 
+            overflow-x: hidden;
+        }
         
         header { 
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 25px; 
-            padding-top: 10px;
+            margin-bottom: 20px; 
         }
-        /* ضبط وتوسيط الشعار بشكل فخم */
         .logo {
-            max-width: 220px;
+            width: 100%;
+            max-width: 180px;
             height: auto;
             object-fit: contain;
         }
@@ -39,26 +49,23 @@
         .controls { 
             display: flex; 
             flex-direction: column; 
-            gap: 15px; 
-            max-width: 600px; 
-            margin: 0 auto 25px auto; 
+            gap: 12px; 
+            width: 100%;
+            max-width: 550px; 
+            margin: 0 auto 20px auto; 
             align-items: center; 
         }
+        
         .search-container { position: relative; width: 100%; }
         .search-container input { 
             width: 100%; 
-            padding: 14px 45px 14px 15px; 
-            border-radius: 12px; 
+            padding: 12px 40px 12px 15px; 
+            border-radius: 10px; 
             border: 2px solid #334155; 
             background-color: var(--card-bg); 
             color: var(--text-color); 
-            font-size: 1.1rem; 
+            font-size: 1rem; 
             outline: none; 
-            transition: all 0.3s ease; 
-        }
-        .search-container input:focus { 
-            border-color: var(--primary-color); 
-            box-shadow: 0 0 10px rgba(2, 132, 199, 0.4); 
         }
         .search-container i { 
             position: absolute; 
@@ -66,52 +73,52 @@
             right: 15px; 
             transform: translateY(-50%); 
             color: var(--text-muted); 
-            font-size: 1.2rem; 
         }
 
-        .filter-buttons { display: flex; gap: 10px; }
+        .filter-buttons { display: flex; gap: 8px; width: 100%; justify-content: center; }
         .btn { 
-            padding: 8px 20px; 
+            flex: 1;
+            max-width: 150px;
+            padding: 8px 12px; 
             border-radius: 8px; 
             border: none; 
             font-weight: 700; 
             cursor: pointer; 
-            transition: all 0.2s ease; 
-            font-size: 0.95rem; 
+            font-size: 0.9rem; 
+            text-align: center;
         }
         .btn-primary { background-color: var(--primary-color); color: #fff; }
-        .btn-primary:hover, .btn-primary.active { background-color: var(--primary-hover); }
         .btn-outline { background-color: transparent; border: 2px solid #334155; color: var(--text-color); }
-        .btn-outline:hover, .btn-outline.active { background-color: #334155; border-color: #475569; }
 
+        /* ستايل اللابتوب الثابت الموحد لجميع الأجهزة */
         .series-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+            width: 100%;
             max-width: 1100px; 
             margin: 0 auto; 
         }
+
         .card { 
             background-color: var(--card-bg); 
-            border-radius: 14px; 
+            border-radius: 10px; 
             overflow: hidden; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
             display: flex; 
             flex-direction: column; 
-            transition: transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .card:hover { transform: translateY(-3px); }
-        .card-img-container { width: 100%; height: 150px; background-color: #0f172a; }
+        .card-img-container { width: 100%; height: 120px; background-color: #0f172a; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         
         .card-content { 
-            padding: 15px; 
+            padding: 10px; 
             display: flex; 
             flex-direction: column; 
-            gap: 12px; 
+            gap: 8px; 
             flex-grow: 1; 
         }
-        .card-title { font-size: 1.15rem; font-weight: 700; line-height: 1.4; }
+        .card-title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
         .card-actions { 
             display: flex; 
             justify-content: space-between; 
@@ -122,35 +129,41 @@
         .btn-watch { 
             background-color: #10b981; 
             color: white; 
-            padding: 7px 14px; 
-            border-radius: 8px; 
+            padding: 5px 10px; 
+            border-radius: 6px; 
             text-decoration: none; 
             font-weight: 700; 
-            font-size: 0.85rem; 
+            font-size: 0.75rem; 
             display: inline-flex; 
             align-items: center; 
-            gap: 6px; 
+            gap: 4px; 
         }
-        .btn-watch:hover { background-color: #059669; }
         
         .btn-fav { 
             background: none; 
             border: none; 
             color: var(--text-muted); 
-            font-size: 1.3rem; 
+            font-size: 1.15rem; 
             cursor: pointer; 
-            transition: color 0.2s; 
         }
         .btn-fav.is-fav { color: var(--fav-color); }
-        
-        .no-results { 
-            text-align: center; 
-            grid-column: 1 / -1; 
-            padding: 20px; 
-            color: var(--text-muted); 
-            font-size: 1.05rem; 
+
+        @media (min-width: 900px) {
+            .series-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
+            .card-img-container { height: 140px; }
+            .card-title { font-size: 1.05rem; }
         }
-        .loading { text-align: center; grid-column: 1 / -1; padding: 20px; font-size: 1.2rem; color: #0ea5e9; }
+        
+        @media (max-width: 500px) {
+            body { padding: 8px; }
+            .series-grid { gap: 6px; }
+            .card-content { padding: 6px; gap: 6px; }
+            .card-title { font-size: 0.75rem; }
+            .card-img-container { height: 75px; }
+            .btn-watch { padding: 4px 6px; font-size: 0.65rem; gap: 2px; }
+            .btn-fav { font-size: 0.95rem; }
+            .logo { max-width: 130px; }
+        }
     </style>
 </head>
 <body>
@@ -162,7 +175,7 @@
     <div class="controls">
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="اكتب اسم المسلسل للبحث واستماعه...">
+            <input type="text" id="searchInput" placeholder="اكتب اسم المسلسل للبحث واستماعه..." autocomplete="off">
         </div>
         <div class="filter-buttons">
             <button class="btn btn-primary active" id="btnAll">كل المسلسلات</button>
@@ -171,11 +184,12 @@
     </div>
 
     <div class="series-grid" id="seriesGrid">
-        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري ربط البيانات مع قوقل شيت...</div>
+        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري ربط البيانات...</div>
     </div>
 
     <script>
         const sheetId = '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U';
+        // تم تنظيف الرابط وإعادتة للوضع المستقر السريع
         const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
         let seriesData = [];
