@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة دراما المجد الموحدة</title>
+    <title>شارات دراما المجد</title>
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -23,6 +23,8 @@
             --primary-hover: #0369a1; 
             --fav-color: #ef4444; 
             --text-muted: #94a3b8; 
+            --ad-bg-1: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+            --ad-bg-2: linear-gradient(135deg, #111827 0%, #312e81 100%);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         
@@ -48,18 +50,18 @@
             transition: all 0.3s ease;
         }
 
-        /* شريط الأقسام الستة المتطور */
+        /* شريط التنقل الجديد باستخدام شعارات القنوات الرسمية والأيقونات الدائرية الموفقة */
         .channel-nav {
             display: flex;
-            gap: 8px;
+            gap: 12px;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto 20px auto;
+            max-width: 800px;
+            margin: 0 auto 25px auto;
             overflow-x: auto;
-            padding-bottom: 8px;
+            padding: 5px 10px 10px 10px;
             justify-content: flex-start;
+            align-items: center;
         }
-        /* دعم التوسط في الشاشات الكبيرة */
         @media (min-width: 900px) {
             .channel-nav { justify-content: center; }
         }
@@ -67,8 +69,8 @@
         .channel-nav::-webkit-scrollbar-thumb { background: var(--card-bg); border-radius: 4px; }
 
         .nav-tab {
-            padding: 10px 16px;
-            border-radius: 12px;
+            padding: 8px 16px;
+            border-radius: 50px;
             border: 2px solid #334155;
             background-color: var(--card-bg);
             color: var(--text-color);
@@ -78,12 +80,23 @@
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-tab img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .nav-tab i {
+            font-size: 1.05rem;
         }
         .nav-tab.active {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            transform: scale(1.05);
         }
 
         .controls { 
@@ -115,18 +128,20 @@
             color: var(--text-muted); 
         }
 
-        /* عنوان فرعي للأقسام داخل الصفحة الرئيسية */
         .section-title {
             max-width: 1100px;
-            margin: 15px auto 10px auto;
-            font-size: 1.1rem;
+            margin: 15px auto 15px auto;
+            font-size: 1.15rem;
             font-weight: 900;
             color: var(--text-color);
             border-right: 4px solid var(--primary-color);
             padding-right: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* ستايل اللابتوب الموحد والثابت (3 أعمدة دائماً على جميع الأجهزة) */
+        /* ستايل الـ Grid الثابت والموحد (3 أعمدة دائماً) */
         .series-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -143,7 +158,9 @@
             display: flex; 
             flex-direction: column; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
         }
+        .card:hover { transform: translateY(-2px); }
         .card-img-container { width: 100%; height: 120px; background-color: #0f172a; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -184,6 +201,29 @@
         }
         .btn-fav.is-fav { color: var(--fav-color); }
 
+        /* ستايل المربعات الإعلانية الكتابية التسويقية */
+        .ad-card {
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px dashed rgba(255,255,255,0.2);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .ad-card:hover { transform: scale(1.02); border-color: #fff; }
+        .ad-card-1 { background: var(--ad-bg-1); }
+        .ad-card-2 { background: var(--ad-bg-2); }
+        .ad-badge { background-color: #f59e0b; color: #000; font-size: 0.65rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; }
+        .ad-title { font-size: 1rem; font-weight: 900; margin-bottom: 6px; }
+        .ad-desc { font-size: 0.75rem; opacity: 0.9; line-height: 1.4; }
+        .ad-link-btn { margin-top: 12px; background: #fff; color: #0f172a; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+
         .no-results { 
             text-align: center; 
             grid-column: 1 / -1; 
@@ -216,12 +256,15 @@
             border: none !important;
         }
 
+        /* الشاشات الكبيرة (اللابتوب والتابلت) */
         @media (min-width: 900px) {
             .series-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
             .card-img-container { height: 140px; }
             .card-title { font-size: 1.05rem; }
+            .ad-card { grid-column: auto; } /* حجم عادي كباقي الكروت على اللابتوب */
         }
         
+        /* شاشات الجوال (تعديل أحجام الكروت وتكبير الإعلانات لتكون بارزة) */
         @media (max-width: 500px) {
             body { padding: 8px; }
             .series-grid { gap: 6px; }
@@ -233,6 +276,11 @@
             .logo { max-width: 130px; }
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
             .section-title { font-size: 0.95rem; margin: 10px 5px; }
+            
+            /* جعل الإعلانات أكبر وممتدة على الجوال لسهولة الضغط */
+            .ad-card { grid-column: span 2; padding: 20px 15px; }
+            .ad-title { font-size: 1.1rem; }
+            .ad-desc { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -245,9 +293,9 @@
     <div class="channel-nav">
         <button class="nav-tab active" onclick="switchChannel('home')"><i class="fa-solid fa-house"></i> الرئيسية</button>
         <button class="nav-tab" onclick="switchChannel('schedule')"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
-        <button class="nav-tab" onclick="switchChannel('general')"><i class="fa-solid fa-tv"></i> العامة</button>
-        <button class="nav-tab" onclick="switchChannel('kids')"><i class="fa-solid fa-child"></i> الأطفال</button>
-        <button class="nav-tab" onclick="switchChannel('massa')"><i class="fa-solid fa-gem"></i> ماسة</button>
+        <button class="nav-tab" onclick="switchChannel('general')"><img src="https://files.catbox.moe/8i7vio.png" alt="العامة"> العامة</button>
+        <button class="nav-tab" onclick="switchChannel('kids')"><img src="https://files.catbox.moe/h3ytss.webp" alt="الأطفال"> الأطفال</button>
+        <button class="nav-tab" onclick="switchChannel('massa')"><img src="https://files.catbox.moe/r8i1hh.webp" alt="ماسة"> ماسة</button>
         <button class="nav-tab" onclick="switchChannel('fav')"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
     </div>
 
@@ -259,9 +307,7 @@
     </div>
 
     <div id="homeTitles" style="display:none;">
-        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> شارات مقترحة لك (عشوائي)</div>
-        <div class="series-grid" id="randomGrid"></div>
-        <div class="section-title"><i class="fa-solid fa-fire"></i> جميع شارات الشبكة المتاحة</div>
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك (عشوائي)</div>
     </div>
 
     <div class="series-grid" id="seriesGrid">
@@ -277,36 +323,25 @@
     </div>
 
     <script>
-        // روابط قوقل شيت والشعارات الخاصة بكل قناة
         const channels = {
-            general: {
-                sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8',
-                logo: 'https://files.catbox.moe/8i7vio.png'
-            },
-            kids: {
-                sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY',
-                logo: 'https://files.catbox.moe/h3ytss.webp'
-            },
-            massa: {
-                sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ',
-                logo: 'https://files.catbox.moe/r8i1hh.webp'
-            }
+            general: { sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8', logo: 'https://files.catbox.moe/8i7vio.png' },
+            kids: { sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY', logo: 'https://files.catbox.moe/h3ytss.webp' },
+            massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/r8i1hh.webp' }
         };
 
         let activeTab = 'home';
-        let allDataMap = { general: [], kids: [], massa: [] }; // لتخزين كافة البيانات
+        let allDataMap = { general: [], kids: [], massa: [] }; 
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
 
         const mainLogo = document.getElementById('mainLogo');
         const seriesGrid = document.getElementById('seriesGrid');
-        const randomGrid = document.getElementById('randomGrid');
         const homeTitles = document.getElementById('homeTitles');
         const controlsBox = document.getElementById('controlsBox');
         const telegramSchedule = document.getElementById('telegramSchedule');
         const searchInput = document.getElementById('searchInput');
         const favCountLabel = document.getElementById('favCount');
 
-        // جلب البيانات من كافة الشيتات دفعة واحدة عند تحميل الصفحة لسرعة استجابة فائقة
+        // جلب البيانات الكلية فور فتح الصفحة لضمان سرعة الانتقال الفوري
         async function fetchAllData() {
             const fetchPromises = Object.keys(channels).map(key => {
                 const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:json`;
@@ -325,13 +360,12 @@
             });
 
             await Promise.all(fetchPromises);
-            switchChannel('home'); // فتح الصفحة الرئيسية افتراضياً بعد اكتمال التحميل
+            switchChannel('home'); 
             updateFavCount();
         }
 
         function updateFavCount() { favCountLabel.textContent = favorites.length; }
 
-        // دالة إنشاء كرت المسلسل بناءً على البيانات المُمررة
         function createCardHtml(item) {
             const isFav = favorites.includes(item.name);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
@@ -350,50 +384,64 @@
                 </div>`;
         }
 
-        // دالة رندرة الكروت وعرض المسلسلات بالكامل أو حسب الفلترة والبحث
+        // كروت الإعلانات الكتابية التسويقية
+        const adCard1Html = `
+            <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
+                <div class="ad-badge">إعلان متجر المجد</div>
+                <div class="ad-title">اشترك الآن في شبكة المجد</div>
+                <div class="ad-desc">تابع باقتك العائلية المفضلة بأعلى دقة وبدون فواصل عبر المتجر الرسمي.</div>
+                <div class="ad-link-btn">اضغط للاشتراك <i class="fa-solid fa-chevron-left"></i></div>
+            </a>`;
+
+        const adCard2Html = `
+            <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
+                <div class="ad-badge" style="background-color: #10b981;">تجديد سريع</div>
+                <div class="ad-title">جدد اشتراكك الحالي فوراً</div>
+                <div class="ad-desc">لا تدع متعة المشاهدة تتوقف، كبسة زر واحدة وتجدد اشتراك رسيفر المجد.</div>
+                <div class="ad-link-btn">اضغط للتجديد <i class="fa-solid fa-chevron-left"></i></div>
+            </a>`;
+
         function renderContent() {
             seriesGrid.innerHTML = '';
-            randomGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
-            // 1. نظام العرض لقسم الصفحة الرئيسية (يوتيوب)
+            // 1. نظام تصفية وعرض الصفحة الرئيسية (9 كروت عشوائية ومربعين إعلانيين متناسقين)
             if (activeTab === 'home') {
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                 
-                // تصفية البحث الفوري إن وُجد
                 if (searchTerm !== '') {
-                    combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
-                }
-
-                if (combinedData.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
-                    return;
-                }
-
-                // توليد قسم "المقترحات العشوائية" فقط عند عدم وجود عملية بحث نشطة لثبات الأداء
-                if (searchTerm === '') {
-                    homeTitles.style.display = 'block';
-                    const shuffled = [...combinedData].sort(() => 0.5 - Math.random());
-                    const randomItems = shuffled.slice(0, 3); // سحب 3 شارات عشوائية في الصدارة بجانب بعضها
-                    randomItems.forEach(item => randomGrid.innerHTML += createCardHtml(item));
-                } else {
                     homeTitles.style.display = 'none';
-                }
+                    combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                    if (combinedData.length === 0) {
+                        seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
+                        return;
+                    }
+                    combinedData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                } else {
+                    homeTitles.style.display = 'block';
+                    // جلب 9 مسلسلات فريدة عشوائياً للرئيسية لمنع التكرار المزعج
+                    const shuffled = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i).sort(() => 0.5 - Math.random());
+                    const selected9 = shuffled.slice(0, 9);
 
-                // عرض بقية المسلسلات كاملة بالأسفل
-                combinedData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                    selected9.forEach((item, index) => {
+                        seriesGrid.innerHTML += createCardHtml(item);
+                        // حقن الإعلان الأول بعد الكرت الثالث
+                        if (index === 2) { seriesGrid.innerHTML += adCard1Html; }
+                        // حقن الإعلان الثاني بعد الكرت السادس
+                        if (index === 5) { seriesGrid.innerHTML += adCard2Html; }
+                    });
+                }
             } 
-            // 2. نظام العرض لقسم المفضلة
+            // 2. نظام المفضلة
             else if (activeTab === 'fav') {
+                homeTitles.style.display = 'none';
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                 let favData = combinedData.filter(item => favorites.includes(item.name));
 
-                // دعم تصفية البحث داخل المفضلة
                 if (searchTerm !== '') {
                     favData = favData.filter(item => item.name.toLowerCase().includes(searchTerm));
                 }
 
-                // إزالة التكرار إن وُجد نفس الاسم في شيتات مختلفة
                 let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name === value.name) === index);
 
                 if (uniqueFavData.length === 0) {
@@ -402,15 +450,17 @@
                 }
                 uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
-            // 3. نظام العرض لقنوات البث الفردية (العامة، الأطفال، ماسة)
+            // 3. قنوات البث الفردية الكاملة مباشرة (العامة، الأطفال، ماسة)
             else {
+                homeTitles.style.display = 'none';
                 let channelData = allDataMap[activeTab] || [];
+                
                 if (searchTerm !== '') {
                     channelData = channelData.filter(item => item.name.toLowerCase().includes(searchTerm));
                 }
 
                 if (channelData.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة حالياً أو تطابق البحث.</div>';
+                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
                     return;
                 }
                 channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
@@ -425,41 +475,35 @@
             renderContent();
         }
 
-        // دالة التنقل المتقدمة والتحكم في عناصر الشاشة والشعارات بحسب الترتيب المطلوب
         window.switchChannel = function(tabName) {
             activeTab = tabName;
             
-            // تعديل أزرار التنقل النشطة بالتصميم
             const tabs = document.querySelectorAll('.nav-tab');
             tabs.forEach(tab => tab.classList.remove('active'));
+            
             if(event && event.currentTarget) {
                 event.currentTarget.classList.add('active');
             } else {
-                // تفعيل تبويب الرئيسية تلقائياً عند أول تشغيل للموقع
                 document.querySelector('.nav-tab').classList.add('active');
             }
 
-            // تصفير حقل البحث مؤقتاً عند التنقل لراحة تصفح الزائر
             searchInput.value = '';
-
-            // إعادة ضبط الشعار وعناصر الرؤية بناءً على القسم النشط
-            homeTitles.style.display = 'none';
             telegramSchedule.style.display = 'none';
             controlsBox.style.display = 'flex';
             seriesGrid.style.display = 'grid';
 
             if (tabName === 'home') {
-                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; // شعار دراما المجد الافتراضي للرئيسية
+                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
             } else if (tabName === 'schedule') {
                 controlsBox.style.display = 'none';
                 seriesGrid.style.display = 'none';
                 telegramSchedule.style.display = 'flex';
+                homeTitles.style.display = 'none';
                 mainLogo.src = 'https://files.catbox.moe/ieu2w1.png';
-                return; // إيقاف الرندرة للمسلسلات لأننا بتبويب الجدول
+                return;
             } else if (tabName === 'fav') {
                 mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
             } else {
-                // جلب الشعار المخصص للقناة المحددة من أوبجكت القنوات العلوي
                 mainLogo.src = channels[tabName].logo;
             }
 
@@ -467,8 +511,6 @@
         }
 
         searchInput.addEventListener('input', renderContent);
-        
-        // إطلاق عملية جلب كافة البيانات الإجمالية فور فتح الموقع
         fetchAllData();
     </script>
 </body>
