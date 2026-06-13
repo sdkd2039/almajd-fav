@@ -49,7 +49,7 @@
             object-fit: contain;
         }
 
-        /* شريط القنوات المطور بشعارات رسمية وأيقونات دائرية متناسقة */
+        /* شريط القنوات العلوي المطور بالشعارات */
         .channel-nav {
             display: flex;
             gap: 12px;
@@ -123,7 +123,7 @@
             color: var(--text-muted); 
         }
 
-        /* حاوية التسويق الاحترافية (تمنع الفراغات والاخطاء في الجريد) */
+        /* حاوية قسم الإعلانات والتسويق المستقل */
         .marketing-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -150,10 +150,12 @@
         .ad-card:hover { transform: translateY(-2px); }
         .ad-card-1 { background: var(--ad-bg-1); }
         .ad-card-2 { background: var(--ad-bg-2); }
-        .ad-badge { background-color: #f59e0b; color: #000; font-size: 0.7rem; font-weight: 900; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
-        .ad-title { font-size: 1.05rem; font-weight: 900; margin-bottom: 4px; }
+        
+        /* تعديل لون الخط الداخلي للشارات ليصبح أبيض وواضح بالكامل */
+        .ad-badge { background-color: rgba(0, 0, 0, 0.3); color: #fff; border: 1px solid rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 900; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+        .ad-title { font-size: 1.1rem; font-weight: 900; margin-bottom: 5px; }
         .ad-desc { font-size: 0.8rem; opacity: 0.95; line-height: 1.4; }
-        .ad-link-btn { margin-top: 10px; background: #fff; color: #0f172a; padding: 4px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .ad-link-btn { margin-top: 12px; background: #fff; color: #0f172a; padding: 5px 16px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
 
         .section-title {
             max-width: 1100px;
@@ -168,11 +170,11 @@
             gap: 6px;
         }
 
-        /* شبكة عرض كروت المسلسلات الثابتة والموفقة (3 أعمدة دائماً للجوال والابتوب كحد أدنى وبدون تداخلات) */
+        /* شبكة العرض الأساسية - افتراضياً للابتوب والشاشات الكبيرة */
         .series-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 12px; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px; 
             width: 100%;
             max-width: 1100px; 
             margin: 0 auto 20px auto; 
@@ -186,7 +188,7 @@
             flex-direction: column; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .card-img-container { width: 100%; height: 120px; background-color: #0f172a; }
+        .card-img-container { width: 100%; height: 140px; background-color: #0f172a; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         
         .card-content { 
@@ -196,7 +198,7 @@
             gap: 8px; 
             flex-grow: 1; 
         }
-        .card-title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+        .card-title { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
         .card-actions { 
             display: flex; 
             justify-content: space-between; 
@@ -255,41 +257,35 @@
             width: 100% !important;
             border: none !important;
         }
-
-        /* شاشات اللابتوب والكمبيوتر */
-        @media (min-width: 900px) {
-            .series-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
-            .card-img-container { height: 140px; }
-            .card-title { font-size: 1.05rem; }
-            .ad-title { font-size: 1.2rem; }
-            .ad-desc { font-size: 0.9rem; }
-        }
         
-        /* شاشات الجوال */
-        @media (max-width: 500px) {
+        /* إعدادات التجاوب المخصصة تماماً لشاشات الجوال */
+        @media (max-width: 600px) {
             body { padding: 8px; }
-            .series-grid { gap: 6px; }
-            .card-content { padding: 6px; gap: 6px; }
-            .card-title { font-size: 0.75rem; }
-            .card-img-container { height: 75px; }
-            .btn-watch { padding: 4px 6px; font-size: 0.65rem; gap: 2px; }
-            .btn-fav { font-size: 0.95rem; }
+            
+            /* تعديل الجريد ليصبح عمودين فقط على الجوال لعرض المسلسلات بشكل كامل وممتاز */
+            .series-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            
+            .card-content { padding: 8px; gap: 6px; }
+            .card-title { font-size: 0.85rem; }
+            .card-img-container { height: 95px; }
+            .btn-watch { padding: 5px 8px; font-size: 0.7rem; gap: 3px; }
+            .btn-fav { font-size: 1rem; }
             .logo { max-width: 130px; }
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
             .section-title { font-size: 0.95rem; margin: 10px 5px; }
             
-            /* المربعات التسويقية تأخذ الحجم الكامل فوق بعض على الجوال بشكل احترافي وجذاب */
-            .marketing-container { grid-template-columns: 1fr; gap: 8px; }
-            .ad-card { padding: 15px 12px; }
-            .ad-title { font-size: 1rem; }
-            .ad-desc { font-size: 0.75rem; }
+            /* جعل المربعات الإعلانية ممتدة وعريضة فوق بعضها في الجوال لسهولة التصفح */
+            .marketing-container { grid-template-columns: 1fr; gap: 10px; }
+            .ad-card { padding: 16px 12px; }
+            .ad-title { font-size: 1.05rem; }
+            .ad-desc { font-size: 0.78rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img id="mainLogo" src="https://files.catbox.moe/ieu2w1.png" alt="شعارات دراما المجد" class="logo">
+        <img id="mainLogo" src="https://files.catbox.moe/ieu2w1.png" alt="شعار دراما المجد" class="logo">
     </header>
 
     <div class="channel-nav">
@@ -310,16 +306,16 @@
 
     <div class="marketing-container" id="marketingContainer" style="display: none;">
         <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
-            <div class="ad-badge">متجر المجد الرسمي</div>
+            <div class="ad-badge">اشتـــــــــرك الآن</div>
             <div class="ad-title">اشترك الآن في شبكة المجد العائلية</div>
-            <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبدون فواصل وبطرق دفع سهلة وموثوقة.</div>
+            <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبطرق دفع سهلة وموثوقة.</div>
             <div class="ad-link-btn">اضغط هنا للاشتراك <i class="fa-solid fa-arrow-left"></i></div>
         </a>
         <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
-            <div class="ad-badge" style="background-color: #111827;">تجديد فوري</div>
+            <div class="ad-badge">تجديد فوري</div>
             <div class="ad-title">جدد اشتراكك الحالي خلال ثوانٍ</div>
-            <div class="ad-desc">لا تدع متعة العائلة والمسلسلات الحصرية تتوقف، كبسة زر واحدة وتجدد اشتراك رسيفر المجد.</div>
-            <div class="ad-link-btn">اضغط هنا للتجديد السريع <i class="fa-solid fa-arrow-left"></i></div>
+            <div class="ad-desc">لا تدع متعة العائلة والمسلسلات الحصرية تتوقف، زر واحد تجدد اشتراك بشكل أسرع.</div>
+            <div class="ad-link-btn">اضغط هنا للتجديد <i class="fa-solid fa-arrow-left"></i></div>
         </a>
     </div>
 
@@ -328,7 +324,7 @@
     </div>
 
     <div class="series-grid" id="seriesGrid">
-        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز البوابة...</div>
+        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>
     </div>
 
     <div class="tg-responsive-wrapper" id="telegramSchedule">
@@ -340,14 +336,16 @@
     </div>
 
     <script>
+        // إضافة معرف الشيت الجديد الموحد للمقترحات
         const channels = {
             general: { sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8', logo: 'https://files.catbox.moe/8i7vio.png' },
             kids: { sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY', logo: 'https://files.catbox.moe/h3ytss.webp' },
-            massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/r8i1hh.webp' }
+            massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/r8i1hh.webp' },
+            suggestions: { sheetId: '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U' } // الشيت الموحد الجديد
         };
 
         let activeTab = 'home';
-        let allDataMap = { general: [], kids: [], massa: [] }; 
+        let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
 
         const mainLogo = document.getElementById('mainLogo');
@@ -368,7 +366,6 @@
                         const temp = data.substring(47, data.length - 2);
                         const json = JSON.parse(temp);
                         
-                        // جلب الصفوف وعكس ترتيبها فوراً (.reverse) ليكون الأحدث المضاف أخيراً في الشيت هو الأعلى بالملف والموقع
                         const rows = json.table.rows.map(row => ({
                             name: row.c[0] ? String(row.c[0].v).trim() : '',
                             watchLink: row.c[1] ? String(row.c[1].v).trim() : '#',
@@ -376,7 +373,12 @@
                             origin: key
                         })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
                         
-                        allDataMap[key] = rows.reverse(); 
+                        // الأقسام الفردية تعكس الترتيب ليكون الأحدث بالأعلى (.reverse)
+                        if (key !== 'suggestions') {
+                            allDataMap[key] = rows.reverse();
+                        } else {
+                            allDataMap[key] = rows; // شيت المقترحات يُترك كما هو للخلط العشوائي الصائب
+                        }
                     }).catch(err => console.error("Error loading " + key, err));
             });
 
@@ -409,35 +411,33 @@
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
-            // 1. قسم الرئيسية (يعرض البانر التسويقي + 9 مسلسلات عشوائية بدون خلط أو تداخل أخطاء)
+            // 1. قسم الرئيسية الذكي المعتمد على الشيت الموحد الجديد
             if (activeTab === 'home') {
-                let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
+                let suggestionsData = [...allDataMap.suggestions];
                 
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
-                    marketingContainer.style.display = 'none'; // إخفاء الإعلانات أثناء البحث لراحة المستخدم
+                    marketingContainer.style.display = 'none';
+                    // البحث يبحث في كافة الشيتات لضمان شمولية النتائج للمستخدم
+                    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                     combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
-                    if (combinedData.length === 0) {
+                    
+                    let uniqueSearch = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+                    
+                    if (uniqueSearch.length === 0) {
                         seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
                         return;
                     }
-                    combinedData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                    uniqueSearch.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
                 } else {
                     homeTitles.style.display = 'block';
-                    marketingContainer.style.display = 'grid'; // إظهار البانر التسويقي الفخم بشكل ممتاز في الصدارة
+                    marketingContainer.style.display = 'grid'; 
 
-                    // إزالة التكرار مع الحفاظ على ترابط الاسم بالصورة لمنع اللخبطة العشوائية
-                    let uniqueCombined = [];
-                    let seenNames = new Set();
-                    for(let item of combinedData) {
-                        if(!seenNames.has(item.name)){
-                            seenNames.add(item.name);
-                            uniqueCombined.push(item);
-                        }
-                    }
+                    // فلترة الشيت الموحد لعدم تكرار أي سطر بالخطأ
+                    let uniqueSuggestions = suggestionsData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
 
-                    // خلط وسحب 9 مسلسلات صحيحة بالكامل ومؤكدة
-                    const shuffled = uniqueCombined.sort(() => 0.5 - Math.random());
+                    // خلط عشوائي آمن وصائب 100% لـ 9 مسلسلات مرتبطة بالكامل
+                    const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
                     const selected9 = shuffled.slice(0, 9);
 
                     selected9.forEach(item => {
@@ -445,7 +445,7 @@
                     });
                 }
             } 
-            // 2. قسم المفضلة 
+            // 2. قسم المفضلة
             else if (activeTab === 'fav') {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
@@ -462,9 +462,9 @@
                     seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
                     return;
                 }
-                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                uniqueFavData.forEach(item => uniqueFavData.innerHTML += seriesGrid.innerHTML += createCardHtml(item));
             } 
-            // 3. أقسام القنوات الفردية الكاملة (العامة، الأطفال، ماسة) مرتبة تنازلياً (الأحدث بالأعلى دائماً)
+            // 3. أقسام القنوات الفردية (الأحدث في الأعلى دائماً)
             else {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
