@@ -307,20 +307,20 @@
     <div class="marketing-container" id="marketingContainer" style="display: none;">
         <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
             <div class="ad-badge">اشتـــــــــرك الآن</div>
-            <div class="ad-title">اشترك الآن في شبكة المجد العائلية</div>
+            <div class="ad-title">اشترك الآن في رسيفر المجد 9 الجديد</div>
             <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبطرق دفع سهلة وموثوقة.</div>
             <div class="ad-link-btn">اضغط هنا للاشتراك <i class="fa-solid fa-arrow-left"></i></div>
         </a>
         <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
             <div class="ad-badge">تجديد فوري</div>
             <div class="ad-title">جدد اشتراكك الحالي خلال ثوانٍ</div>
-            <div class="ad-desc">لا تدع متعة العائلة والمسلسلات الحصرية تتوقف، زر واحد تجدد اشتراك بشكل أسرع.</div>
+            <div class="ad-desc">لا توقف متعة العائلة.. بضغطة زر واحدة جدد اشتراكك بشكل أسرع.</div>
             <div class="ad-link-btn">اضغط هنا للتجديد <i class="fa-solid fa-arrow-left"></i></div>
         </a>
     </div>
 
     <div id="homeTitles" style="display:none;">
-        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك (9 مسلسلات عشوائية متجددة)</div>
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك</div>
     </div>
 
     <div class="series-grid" id="seriesGrid">
@@ -336,12 +336,11 @@
     </div>
 
     <script>
-        // إضافة معرف الشيت الجديد الموحد للمقترحات
         const channels = {
             general: { sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8', logo: 'https://files.catbox.moe/8i7vio.png' },
             kids: { sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY', logo: 'https://files.catbox.moe/h3ytss.webp' },
             massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/r8i1hh.webp' },
-            suggestions: { sheetId: '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U' } // الشيت الموحد الجديد
+            suggestions: { sheetId: '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U' } 
         };
 
         let activeTab = 'home';
@@ -373,11 +372,10 @@
                             origin: key
                         })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
                         
-                        // الأقسام الفردية تعكس الترتيب ليكون الأحدث بالأعلى (.reverse)
                         if (key !== 'suggestions') {
                             allDataMap[key] = rows.reverse();
                         } else {
-                            allDataMap[key] = rows; // شيت المقترحات يُترك كما هو للخلط العشوائي الصائب
+                            allDataMap[key] = rows;
                         }
                     }).catch(err => console.error("Error loading " + key, err));
             });
@@ -411,14 +409,12 @@
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
-            // 1. قسم الرئيسية الذكي المعتمد على الشيت الموحد الجديد
             if (activeTab === 'home') {
                 let suggestionsData = [...allDataMap.suggestions];
                 
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
                     marketingContainer.style.display = 'none';
-                    // البحث يبحث في كافة الشيتات لضمان شمولية النتائج للمستخدم
                     let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                     combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
                     
@@ -433,19 +429,17 @@
                     homeTitles.style.display = 'block';
                     marketingContainer.style.display = 'grid'; 
 
-                    // فلترة الشيت الموحد لعدم تكرار أي سطر بالخطأ
                     let uniqueSuggestions = suggestionsData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
 
-                    // خلط عشوائي آمن وصائب 100% لـ 9 مسلسلات مرتبطة بالكامل
+                    // خلط عشوائي صائب واختيار 8 مسلسلات فقط بالتساوي
                     const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
-                    const selected9 = shuffled.slice(0, 9);
+                    const selected8 = shuffled.slice(0, 8);
 
-                    selected9.forEach(item => {
+                    selected8.forEach(item => {
                         seriesGrid.innerHTML += createCardHtml(item);
                     });
                 }
             } 
-            // 2. قسم المفضلة
             else if (activeTab === 'fav') {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
@@ -462,9 +456,8 @@
                     seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
                     return;
                 }
-                uniqueFavData.forEach(item => uniqueFavData.innerHTML += seriesGrid.innerHTML += createCardHtml(item));
+                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
-            // 3. أقسام القنوات الفردية (الأحدث في الأعلى دائماً)
             else {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
