@@ -132,7 +132,7 @@
             gap: 12px;
             width: 100%;
             max-width: 1100px;
-            margin: 0 auto 20px auto;
+            margin: 15px auto;
         }
 
         .ad-card {
@@ -387,7 +387,7 @@
             .card-content { padding: 8px; gap: 6px; }
             .card-title { font-size: 0.85rem; }
             .card-img-container { height: 95px; }
-            .btn-watch { padding: 5px 8px; font-size: 0.7 EM; gap: 3px; }
+            .btn-watch { padding: 5px 8px; font-size: 0.7rem; gap: 3px; }
             .btn-fav { font-size: 1rem; }
             .logo { max-width: 130px; }
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
@@ -431,6 +431,10 @@
         </div>
     </div>
 
+    <div id="homeTitles" style="display:none;">
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك</div>
+    </div>
+
     <div class="marketing-container" id="marketingContainer" style="display: none;">
         <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
             <div class="ad-badge">اشتـــــــــرك الآن</div>
@@ -446,10 +450,6 @@
         </a>
     </div>
 
-    <div id="homeTitles" style="display:none;">
-        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك</div>
-    </div>
-
     <div class="series-grid" id="seriesGrid">
         <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>
     </div>
@@ -458,7 +458,7 @@
         <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
         <div class="faq-container">
             <details>
-                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
+                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد?</summary>
                 <div class="answer">
                     الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة أو من تطبيق سين؛ لذا جميع الحقوق الفكرية للمحتوى تعود لمالكيها الأصليين.
                 </div>
@@ -481,7 +481,7 @@
             <details>
                 <summary>4- هل الموقع آمن للاستخدام ولا يستهلك البيانات بشكل كبير؟</summary>
                 <div class="answer">
-                    نعم، تم بناء الموقع ليكون خفيفاً جداً ومتوافقاً مع معايير الأمان الشاملة، مع ضغط ملفات الصوت والشعارات لضمان أفضل جودة بأقل استهلاك ممكن للبيانات.
+                    نحن نضمن دائماً أن يكون الموقع خفيفاً جداً ومتوافقاً مع معايير الأمان الشاملة، مع ضغط ملفات الصوت والشعارات لضمان أفضل جودة بأقل استهلاك ممكن للبيانات.
                 </div>
             </details>
 
@@ -543,6 +543,7 @@
 
         let activeTab = 'home';
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
+        let currentHomeSuggestions = []; // مصفوفة لحفظ عشوائية المقترحات الثابتة لمنع القلتش
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
 
         const mainLogo = document.getElementById('mainLogo');
@@ -580,6 +581,12 @@
             });
 
             await Promise.all(fetchPromises);
+            
+            // توليد عشوائية المقترحات مرة واحدة فقط عند التحميل الأول لمنع القلتش
+            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+            const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
+            currentHomeSuggestions = shuffled.slice(0, 8);
+
             switchChannel('home'); 
             updateFavCount();
         }
@@ -609,8 +616,6 @@
             const searchTerm = searchInput.value.trim().toLowerCase();
 
             if (activeTab === 'home') {
-                let suggestionsData = [...allDataMap.suggestions];
-                
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
                     marketingContainer.style.display = 'none';
@@ -628,14 +633,10 @@
                 } else {
                     homeTitles.style.display = 'block';
                     marketingContainer.style.display = 'grid'; 
-                    faqSection.style.display = 'block'; // إظهار الأسئلة الشائعة في الرئيسية فقط
+                    faqSection.style.display = 'block';
 
-                    let uniqueSuggestions = suggestionsData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
-
-                    const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
-                    const selected8 = shuffled.slice(0, 8);
-
-                    selected8.forEach(item => {
+                    // عرض المقترحات الثابتة والمحفوظة مسبقاً لمنع الاختفاء والقلتش
+                    currentHomeSuggestions.forEach(item => {
                         seriesGrid.innerHTML += createCardHtml(item);
                     });
                 }
@@ -670,60 +671,4 @@
                 }
 
                 if (channelData.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
-                    return;
-                }
-                channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-            }
-        }
-
-        window.toggleFavorite = function(name) {
-            if (favorites.includes(name)) { favorites = favorites.filter(fav => fav !== name); } 
-            else { favorites.push(name); }
-            localStorage.setItem('majd_favs', JSON.stringify(favorites));
-            updateFavCount();
-            renderContent();
-        }
-
-        window.switchChannel = function(tabName) {
-            activeTab = tabName;
-            
-            const tabs = document.querySelectorAll('.nav-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            if(event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            } else {
-                document.querySelector('.nav-tab').classList.add('active');
-            }
-
-            searchInput.value = '';
-            telegramSchedule.style.display = 'none';
-            controlsBox.style.display = 'flex';
-            seriesGrid.style.display = 'grid';
-
-            if (tabName === 'home') {
-                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
-            } else if (tabName === 'schedule') {
-                controlsBox.style.display = 'none';
-                seriesGrid.style.display = 'none';
-                homeTitles.style.display = 'none';
-                marketingContainer.style.display = 'none';
-                faqSection.style.display = 'none';
-                telegramSchedule.style.display = 'flex';
-                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png';
-                return;
-            } else if (tabName === 'fav') {
-                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
-            } else {
-                mainLogo.src = channels[tabName].logo;
-            }
-
-            renderContent();
-        }
-
-        searchInput.addEventListener('input', renderContent);
-        fetchAllData();
-    </script>
-</body>
-</html>
+                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث
