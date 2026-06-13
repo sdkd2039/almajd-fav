@@ -23,8 +23,8 @@
             --primary-hover: #0369a1; 
             --fav-color: #ef4444; 
             --text-muted: #94a3b8; 
-            --ad-bg-1: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
-            --ad-bg-2: linear-gradient(135deg, #111827 0%, #312e81 100%);
+            --ad-bg-1: linear-gradient(135deg, #075985 0%, #0284c7 100%);
+            --ad-bg-2: linear-gradient(135deg, #065f46 0%, #10b981 100%);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         
@@ -47,10 +47,9 @@
             max-width: 160px;
             height: auto;
             object-fit: contain;
-            transition: all 0.3s ease;
         }
 
-        /* شريط التنقل الجديد باستخدام شعارات القنوات الرسمية والأيقونات الدائرية الموفقة */
+        /* شريط القنوات المطور بشعارات رسمية وأيقونات دائرية متناسقة */
         .channel-nav {
             display: flex;
             gap: 12px;
@@ -81,7 +80,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .nav-tab img {
@@ -90,19 +89,15 @@
             object-fit: contain;
             border-radius: 4px;
         }
-        .nav-tab i {
-            font-size: 1.05rem;
-        }
         .nav-tab.active {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .controls { 
             display: flex; 
             flex-direction: column; 
-            gap: 12px; 
             width: 100%;
             max-width: 550px; 
             margin: 0 auto 20px auto; 
@@ -128,6 +123,38 @@
             color: var(--text-muted); 
         }
 
+        /* حاوية التسويق الاحترافية (تمنع الفراغات والاخطاء في الجريد) */
+        .marketing-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+        }
+
+        .ad-card {
+            border-radius: 12px;
+            padding: 18px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ad-card:hover { transform: translateY(-2px); }
+        .ad-card-1 { background: var(--ad-bg-1); }
+        .ad-card-2 { background: var(--ad-bg-2); }
+        .ad-badge { background-color: #f59e0b; color: #000; font-size: 0.7rem; font-weight: 900; padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+        .ad-title { font-size: 1.05rem; font-weight: 900; margin-bottom: 4px; }
+        .ad-desc { font-size: 0.8rem; opacity: 0.95; line-height: 1.4; }
+        .ad-link-btn { margin-top: 10px; background: #fff; color: #0f172a; padding: 4px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+
         .section-title {
             max-width: 1100px;
             margin: 15px auto 15px auto;
@@ -141,7 +168,7 @@
             gap: 6px;
         }
 
-        /* ستايل الـ Grid الثابت والموحد (3 أعمدة دائماً) */
+        /* شبكة عرض كروت المسلسلات الثابتة والموفقة (3 أعمدة دائماً للجوال والابتوب كحد أدنى وبدون تداخلات) */
         .series-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -158,9 +185,7 @@
             display: flex; 
             flex-direction: column; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
         }
-        .card:hover { transform: translateY(-2px); }
         .card-img-container { width: 100%; height: 120px; background-color: #0f172a; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -201,29 +226,6 @@
         }
         .btn-fav.is-fav { color: var(--fav-color); }
 
-        /* ستايل المربعات الإعلانية الكتابية التسويقية */
-        .ad-card {
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            border: 2px dashed rgba(255,255,255,0.2);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .ad-card:hover { transform: scale(1.02); border-color: #fff; }
-        .ad-card-1 { background: var(--ad-bg-1); }
-        .ad-card-2 { background: var(--ad-bg-2); }
-        .ad-badge { background-color: #f59e0b; color: #000; font-size: 0.65rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; margin-bottom: 8px; text-transform: uppercase; }
-        .ad-title { font-size: 1rem; font-weight: 900; margin-bottom: 6px; }
-        .ad-desc { font-size: 0.75rem; opacity: 0.9; line-height: 1.4; }
-        .ad-link-btn { margin-top: 12px; background: #fff; color: #0f172a; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
-
         .no-results { 
             text-align: center; 
             grid-column: 1 / -1; 
@@ -231,7 +233,6 @@
             padding: 40px 15px; 
             color: var(--text-muted); 
             font-size: 1rem; 
-            line-height: 1.6;
         }
         .loading { 
             text-align: center; 
@@ -242,7 +243,6 @@
             color: #0ea5e9; 
         }
 
-        /* غلاف الجدول اليومي */
         .tg-responsive-wrapper {
             width: 100%;
             max-width: 100%;
@@ -256,15 +256,16 @@
             border: none !important;
         }
 
-        /* الشاشات الكبيرة (اللابتوب والتابلت) */
+        /* شاشات اللابتوب والكمبيوتر */
         @media (min-width: 900px) {
             .series-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; }
             .card-img-container { height: 140px; }
             .card-title { font-size: 1.05rem; }
-            .ad-card { grid-column: auto; } /* حجم عادي كباقي الكروت على اللابتوب */
+            .ad-title { font-size: 1.2rem; }
+            .ad-desc { font-size: 0.9rem; }
         }
         
-        /* شاشات الجوال (تعديل أحجام الكروت وتكبير الإعلانات لتكون بارزة) */
+        /* شاشات الجوال */
         @media (max-width: 500px) {
             body { padding: 8px; }
             .series-grid { gap: 6px; }
@@ -277,10 +278,11 @@
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
             .section-title { font-size: 0.95rem; margin: 10px 5px; }
             
-            /* جعل الإعلانات أكبر وممتدة على الجوال لسهولة الضغط */
-            .ad-card { grid-column: span 2; padding: 20px 15px; }
-            .ad-title { font-size: 1.1rem; }
-            .ad-desc { font-size: 0.85rem; }
+            /* المربعات التسويقية تأخذ الحجم الكامل فوق بعض على الجوال بشكل احترافي وجذاب */
+            .marketing-container { grid-template-columns: 1fr; gap: 8px; }
+            .ad-card { padding: 15px 12px; }
+            .ad-title { font-size: 1rem; }
+            .ad-desc { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -306,8 +308,23 @@
         </div>
     </div>
 
+    <div class="marketing-container" id="marketingContainer" style="display: none;">
+        <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
+            <div class="ad-badge">متجر المجد الرسمي</div>
+            <div class="ad-title">اشترك الآن في شبكة المجد العائلية</div>
+            <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبدون فواصل وبطرق دفع سهلة وموثوقة.</div>
+            <div class="ad-link-btn">اضغط هنا للاشتراك <i class="fa-solid fa-arrow-left"></i></div>
+        </a>
+        <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
+            <div class="ad-badge" style="background-color: #111827;">تجديد فوري</div>
+            <div class="ad-title">جدد اشتراكك الحالي خلال ثوانٍ</div>
+            <div class="ad-desc">لا تدع متعة العائلة والمسلسلات الحصرية تتوقف، كبسة زر واحدة وتجدد اشتراك رسيفر المجد.</div>
+            <div class="ad-link-btn">اضغط هنا للتجديد السريع <i class="fa-solid fa-arrow-left"></i></div>
+        </a>
+    </div>
+
     <div id="homeTitles" style="display:none;">
-        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك (عشوائي)</div>
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك (9 مسلسلات عشوائية متجددة)</div>
     </div>
 
     <div class="series-grid" id="seriesGrid">
@@ -337,11 +354,11 @@
         const seriesGrid = document.getElementById('seriesGrid');
         const homeTitles = document.getElementById('homeTitles');
         const controlsBox = document.getElementById('controlsBox');
+        const marketingContainer = document.getElementById('marketingContainer');
         const telegramSchedule = document.getElementById('telegramSchedule');
         const searchInput = document.getElementById('searchInput');
         const favCountLabel = document.getElementById('favCount');
 
-        // جلب البيانات الكلية فور فتح الصفحة لضمان سرعة الانتقال الفوري
         async function fetchAllData() {
             const fetchPromises = Object.keys(channels).map(key => {
                 const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:json`;
@@ -350,12 +367,16 @@
                     .then(data => {
                         const temp = data.substring(47, data.length - 2);
                         const json = JSON.parse(temp);
-                        allDataMap[key] = json.table.rows.map(row => ({
-                            name: row.c[0] ? row.c[0].v : '',
-                            watchLink: row.c[1] ? row.c[1].v : '#',
-                            imgLink: row.c[2] ? row.c[2].v : '',
+                        
+                        // جلب الصفوف وعكس ترتيبها فوراً (.reverse) ليكون الأحدث المضاف أخيراً في الشيت هو الأعلى بالملف والموقع
+                        const rows = json.table.rows.map(row => ({
+                            name: row.c[0] ? String(row.c[0].v).trim() : '',
+                            watchLink: row.c[1] ? String(row.c[1].v).trim() : '#',
+                            imgLink: row.c[2] ? String(row.c[2].v).trim() : '',
                             origin: key
                         })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
+                        
+                        allDataMap[key] = rows.reverse(); 
                     }).catch(err => console.error("Error loading " + key, err));
             });
 
@@ -384,33 +405,17 @@
                 </div>`;
         }
 
-        // كروت الإعلانات الكتابية التسويقية
-        const adCard1Html = `
-            <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
-                <div class="ad-badge">إعلان متجر المجد</div>
-                <div class="ad-title">اشترك الآن في شبكة المجد</div>
-                <div class="ad-desc">تابع باقتك العائلية المفضلة بأعلى دقة وبدون فواصل عبر المتجر الرسمي.</div>
-                <div class="ad-link-btn">اضغط للاشتراك <i class="fa-solid fa-chevron-left"></i></div>
-            </a>`;
-
-        const adCard2Html = `
-            <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
-                <div class="ad-badge" style="background-color: #10b981;">تجديد سريع</div>
-                <div class="ad-title">جدد اشتراكك الحالي فوراً</div>
-                <div class="ad-desc">لا تدع متعة المشاهدة تتوقف، كبسة زر واحدة وتجدد اشتراك رسيفر المجد.</div>
-                <div class="ad-link-btn">اضغط للتجديد <i class="fa-solid fa-chevron-left"></i></div>
-            </a>`;
-
         function renderContent() {
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
-            // 1. نظام تصفية وعرض الصفحة الرئيسية (9 كروت عشوائية ومربعين إعلانيين متناسقين)
+            // 1. قسم الرئيسية (يعرض البانر التسويقي + 9 مسلسلات عشوائية بدون خلط أو تداخل أخطاء)
             if (activeTab === 'home') {
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                 
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
+                    marketingContainer.style.display = 'none'; // إخفاء الإعلانات أثناء البحث لراحة المستخدم
                     combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
                     if (combinedData.length === 0) {
                         seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
@@ -419,22 +424,31 @@
                     combinedData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
                 } else {
                     homeTitles.style.display = 'block';
-                    // جلب 9 مسلسلات فريدة عشوائياً للرئيسية لمنع التكرار المزعج
-                    const shuffled = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i).sort(() => 0.5 - Math.random());
+                    marketingContainer.style.display = 'grid'; // إظهار البانر التسويقي الفخم بشكل ممتاز في الصدارة
+
+                    // إزالة التكرار مع الحفاظ على ترابط الاسم بالصورة لمنع اللخبطة العشوائية
+                    let uniqueCombined = [];
+                    let seenNames = new Set();
+                    for(let item of combinedData) {
+                        if(!seenNames.has(item.name)){
+                            seenNames.add(item.name);
+                            uniqueCombined.push(item);
+                        }
+                    }
+
+                    // خلط وسحب 9 مسلسلات صحيحة بالكامل ومؤكدة
+                    const shuffled = uniqueCombined.sort(() => 0.5 - Math.random());
                     const selected9 = shuffled.slice(0, 9);
 
-                    selected9.forEach((item, index) => {
+                    selected9.forEach(item => {
                         seriesGrid.innerHTML += createCardHtml(item);
-                        // حقن الإعلان الأول بعد الكرت الثالث
-                        if (index === 2) { seriesGrid.innerHTML += adCard1Html; }
-                        // حقن الإعلان الثاني بعد الكرت السادس
-                        if (index === 5) { seriesGrid.innerHTML += adCard2Html; }
                     });
                 }
             } 
-            // 2. نظام المفضلة
+            // 2. قسم المفضلة 
             else if (activeTab === 'fav') {
                 homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                 let favData = combinedData.filter(item => favorites.includes(item.name));
 
@@ -450,9 +464,10 @@
                 }
                 uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
-            // 3. قنوات البث الفردية الكاملة مباشرة (العامة، الأطفال، ماسة)
+            // 3. أقسام القنوات الفردية الكاملة (العامة، الأطفال، ماسة) مرتبة تنازلياً (الأحدث بالأعلى دائماً)
             else {
                 homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
                 let channelData = allDataMap[activeTab] || [];
                 
                 if (searchTerm !== '') {
@@ -497,8 +512,9 @@
             } else if (tabName === 'schedule') {
                 controlsBox.style.display = 'none';
                 seriesGrid.style.display = 'none';
-                telegramSchedule.style.display = 'flex';
                 homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
+                telegramSchedule.style.display = 'flex';
                 mainLogo.src = 'https://files.catbox.moe/ieu2w1.png';
                 return;
             } else if (tabName === 'fav') {
