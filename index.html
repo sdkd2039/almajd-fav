@@ -410,7 +410,7 @@
         <button class="nav-tab" onclick="switchChannel('schedule')"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
         <button class="nav-tab" onclick="switchChannel('general')"><img src="https://files.catbox.moe/8i7vio.png" alt="العامة"> العامة</button>
         <button class="nav-tab" onclick="switchChannel('kids')"><img src="https://files.catbox.moe/h3ytss.webp" alt="الأطفال"> الأطفال</button>
-        <button class="nav-tab" onclick="switchChannel('massa')"><img src="https://files.catbox.moe/r8i1hh.webp" alt="ماسة"> ماسة</button>
+        <button class="nav-tab" onclick="switchChannel('massa')"><img src="https://files.catbox.moe/6h91vy.png" alt="ماسة"> ماسة</button>
         <button class="nav-tab" onclick="switchChannel('fav')"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
     </div>
 
@@ -455,7 +455,7 @@
             </details>
 
             <details>
-                <summary>2- لماذا قد لا تعمل بعض الروابط أو الملفات الصوتية؟</summary>
+                <summary>2- لماذا قد لا تعمل بعض الروابط أو الملفات الصوتية?</summary>
                 <div class="answer">
                     يعتمد الموقع على بروتوكولات تشغيل سريعة، وفي حال واجهت مشكلة في التشغيل، تأكد من تحديث المتصفح لديك أو تحقق من استقرار اتصال الإنترنت لديك؛ حيث أن بعض القيود التقنية قد تمنع التشغيل في المتصفحات القديمة.
                 </div>
@@ -524,10 +524,11 @@
     </footer>
 
     <script>
+        // تم تحديث رابط لوجو ماسة هنا أيضاً ليظهر بشكل صحيح عند الضغط على التبويب
         const channels = {
             general: { sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8', logo: 'https://files.catbox.moe/8i7vio.png' },
             kids: { sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY', logo: 'https://files.catbox.moe/h3ytss.webp' },
-            massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/r8i1hh.webp' },
+            massa: { sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ', logo: 'https://files.catbox.moe/6h91vy.png' },
             suggestions: { sheetId: '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U' } 
         };
 
@@ -605,6 +606,7 @@
             const searchTerm = searchInput.value.trim().toLowerCase();
 
             if (activeTab === 'home') {
+                controlsBox.style.display = 'flex'; // إظهار صندوق البحث في الرئيسية
                 telegramSchedule.style.display = 'none';
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
@@ -631,6 +633,7 @@
                 }
             } 
             else if (activeTab === 'schedule') {
+                controlsBox.style.display = 'none'; // تم الحذف: إخفاء صندوق البحث بالكامل في تبويب الجدول اليومي
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
                 faqSection.style.display = 'none';
@@ -638,6 +641,7 @@
                 telegramSchedule.style.display = 'flex';
             }
             else if (activeTab === 'fav') {
+                controlsBox.style.display = 'flex'; 
                 telegramSchedule.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
@@ -658,6 +662,7 @@
                 uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
             else {
+                controlsBox.style.display = 'flex'; 
                 telegramSchedule.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
