@@ -153,7 +153,6 @@
         .ad-card-1 { background: var(--ad-bg-1); }
         .ad-card-2 { background: var(--ad-bg-2); }
         
-        /* تعديل لون الخط الداخلي للشارات ليصبح أبيض وواضح بالكامل */
         .ad-badge { background-color: rgba(0, 0, 0, 0.3); color: #fff; border: 1px solid rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 900; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
         .ad-title { font-size: 1.1rem; font-weight: 900; margin-bottom: 5px; }
         .ad-desc { font-size: 0.8rem; opacity: 0.95; line-height: 1.4; }
@@ -381,7 +380,6 @@
         @media (max-width: 600px) {
             body { padding: 8px; }
             
-            /* تعديل الجريد ليصبح عمودين فقط على الجوال لعرض المسلسلات بشكل كامل وممتاز */
             .series-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             
             .card-content { padding: 8px; gap: 6px; }
@@ -393,13 +391,11 @@
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
             .section-title { font-size: 0.95rem; margin: 10px 5px; }
             
-            /* جعل المربعات الإعلانية ممتدة وعريضة فوق بعضها في الجوال لسهولة التصفح */
             .marketing-container { grid-template-columns: 1fr; gap: 10px; }
             .ad-card { padding: 16px 12px; }
             .ad-title { font-size: 1.05rem; }
             .ad-desc { font-size: 0.78rem; }
 
-            /* تجاوب الأسئلة الشائعة والتذييل على الجوال */
             .faq-title { font-size: 1.2rem; }
             summary { font-size: 0.9rem; }
             .answer { font-size: 0.85rem; }
@@ -458,7 +454,7 @@
         <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
         <div class="faq-container">
             <details>
-                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد?</summary>
+                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
                 <div class="answer">
                     الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة أو من تطبيق سين؛ لذا جميع الحقوق الفكرية للمحتوى تعود لمالكيها الأصليين.
                 </div>
@@ -543,7 +539,7 @@
 
         let activeTab = 'home';
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
-        let currentHomeSuggestions = []; // مصفوفة لحفظ عشوائية المقترحات الثابتة لمنع القلتش
+        let currentHomeSuggestions = []; 
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
 
         const mainLogo = document.getElementById('mainLogo');
@@ -582,12 +578,12 @@
 
             await Promise.all(fetchPromises);
             
-            // توليد عشوائية المقترحات مرة واحدة فقط عند التحميل الأول لمنع القلتش
             let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
             const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
             currentHomeSuggestions = shuffled.slice(0, 8);
 
-            switchChannel('home'); 
+            // تعديل أساسي: استدعاء دالة البناء مباشرة دون تكرار
+            renderContent(); 
             updateFavCount();
         }
 
@@ -616,6 +612,7 @@
             const searchTerm = searchInput.value.trim().toLowerCase();
 
             if (activeTab === 'home') {
+                telegramSchedule.style.display = 'none';
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
                     marketingContainer.style.display = 'none';
@@ -635,13 +632,21 @@
                     marketingContainer.style.display = 'grid'; 
                     faqSection.style.display = 'block';
 
-                    // عرض المقترحات الثابتة والمحفوظة مسبقاً لمنع الاختفاء والقلتش
                     currentHomeSuggestions.forEach(item => {
                         seriesGrid.innerHTML += createCardHtml(item);
                     });
                 }
             } 
+            else if (activeTab === 'schedule') {
+                // إظهار جدول التليجرام وإخفاء العناصر الأخرى
+                homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
+                seriesGrid.innerHTML = '';
+                telegramSchedule.style.display = 'flex';
+            }
             else if (activeTab === 'fav') {
+                telegramSchedule.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
                 faqSection.style.display = 'none';
@@ -661,6 +666,7 @@
                 uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
             else {
+                telegramSchedule.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
                 faqSection.style.display = 'none';
@@ -671,4 +677,56 @@
                 }
 
                 if (channelData.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث
+                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
+                    return;
+                }
+                channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+            }
+        }
+
+        // دالة التبديل بين القنوات والمقاطع المصححة والمضافة بالكامل
+        function switchChannel(tabName) {
+            activeTab = tabName;
+            
+            // تحديث تصميم الأزرار النشطة
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                if(tab.getAttribute('onclick').includes(`'${tabName}'`)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // تغيير اللوجو بناءً على القناة المحددة لتعطي طابع تفاعلي ممتاز
+            if (channels[tabName] && channels[tabName].logo) {
+                mainLogo.src = channels[tabName].logo;
+            } else {
+                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; // اللوجو الأساسي
+            }
+
+            // تصفير البحث عند الانتقال بين الأقسام لسهولة التصفح
+            searchInput.value = '';
+            renderContent();
+        }
+
+        // دالة التحكم بالمفضلة وحفظها بذاكرة المتصفح المحلية
+        function toggleFavorite(name) {
+            if (favorites.includes(name)) {
+                favorites = favorites.filter(item => item !== name);
+            } else {
+                favorites.push(name);
+            }
+            localStorage.setItem('majd_favs', JSON.stringify(favorites));
+            updateFavCount();
+            renderContent();
+        }
+
+        // تفعيل البحث الفوري الفعال أثناء الكتابة دون جليتش
+        searchInput.addEventListener('input', renderContent);
+
+        // بدء تشغيل جلب البيانات بمجرد اكتمال تحميل عناصر الصفحة الأساسية
+        window.addEventListener('DOMContentLoaded', fetchAllData);
+    </script>
+</body>
+</html>
