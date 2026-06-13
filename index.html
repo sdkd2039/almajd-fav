@@ -25,6 +25,8 @@
             --text-muted: #94a3b8; 
             --ad-bg-1: linear-gradient(135deg, #075985 0%, #0284c7 100%);
             --ad-bg-2: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+            --accent-gold: #ffd700;
+            --accent-cyan: #00d4ff;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         
@@ -257,6 +259,123 @@
             width: 100% !important;
             border: none !important;
         }
+
+        /* --- قسم الأسئلة الشائعة المدمج والمطور --- */
+        .faq-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto 20px auto;
+            padding: 0 10px;
+        }
+        .faq-title {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.5px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .faq-container {
+            max-width: 900px;
+            margin: auto;
+        }
+        details {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        details[open] {
+            background: var(--card-bg);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        summary {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-color);
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            padding-right: 30px;
+            outline: none;
+            display: flex;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::before {
+            content: "✦";
+            position: absolute;
+            right: 0;
+            transition: transform 0.3s ease;
+            color: var(--accent-gold);
+            font-size: 16px;
+        }
+        details[open] summary::before {
+            transform: rotate(45deg);
+            color: var(--accent-cyan);
+        }
+        .answer {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 12px;
+            font-weight: 400;
+        }
+        details:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* --- قسم التذييل الاحترافي (Footer) --- */
+        footer {
+            width: 100%;
+            max-width: 1100px;
+            margin: 50px auto 10px auto;
+            border-top: 1px solid #334155;
+            padding: 25px 15px 10px 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        .footer-rights {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .footer-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .footer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+        .footer-btn.btn-instagram { background-color: #e1306c; }
+        .footer-btn.btn-telegram { background-color: #0088cc; }
+        .footer-btn.btn-feedback { background-color: var(--primary-color); }
+        .footer-btn:hover { transform: translateY(-2px); opacity: 0.9; }
         
         /* إعدادات التجاوب المخصصة تماماً لشاشات الجوال */
         @media (max-width: 600px) {
@@ -268,7 +387,7 @@
             .card-content { padding: 8px; gap: 6px; }
             .card-title { font-size: 0.85rem; }
             .card-img-container { height: 95px; }
-            .btn-watch { padding: 5px 8px; font-size: 0.7rem; gap: 3px; }
+            .btn-watch { padding: 5px 8px; font-size: 0.7 EM; gap: 3px; }
             .btn-fav { font-size: 1rem; }
             .logo { max-width: 130px; }
             .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
@@ -279,6 +398,14 @@
             .ad-card { padding: 16px 12px; }
             .ad-title { font-size: 1.05rem; }
             .ad-desc { font-size: 0.78rem; }
+
+            /* تجاوب الأسئلة الشائعة والتذييل على الجوال */
+            .faq-title { font-size: 1.2rem; }
+            summary { font-size: 0.9rem; }
+            .answer { font-size: 0.85rem; }
+            footer { gap: 12px; margin-top: 35px; }
+            .footer-links { flex-direction: column; width: 100%; max-width: 280px; gap: 10px; }
+            .footer-btn { justify-content: center; width: 100%; }
         }
     </style>
 </head>
@@ -327,6 +454,60 @@
         <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>
     </div>
 
+    <div class="faq-section" id="faqSection" style="display: none;">
+        <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
+        <div class="faq-container">
+            <details>
+                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
+                <div class="answer">
+                    الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة أو من تطبيق سين؛ لذا جميع الحقوق الفكرية للمحتوى تعود لمالكيها الأصليين.
+                </div>
+            </details>
+
+            <details>
+                <summary>2- لماذا قد لا تعمل بعض الروابط أو الملفات الصوتية؟</summary>
+                <div class="answer">
+                    يعتمد الموقع على بروتوكولات تشغيل سريعة، وفي حال واجهت مشكلة في التشغيل، تأكد من تحديث المتصفح لديك أو تحقق من استقرار اتصال الإنترنت لديك؛ حيث أن بعض القيود التقنية قد تمنع التشغيل في المتصفحات القديمة.
+                </div>
+            </details>
+
+            <details>
+                <summary>3- كيف يمكنني اقتراح للموقع أو طلب شارة مفقودة؟</summary>
+                <div class="answer">
+                    نحن نرحب دائماً بطلبات الجمهور؛ يمكنك التواصل معنا عبر حسابات التواصل الموضحة في التذبيل (في الأسفل) لتقديم طلباتك أو الإبلاغ عن أي خلل تقني.
+                </div>
+            </details>
+
+            <details>
+                <summary>4- هل الموقع آمن للاستخدام ولا يستهلك البيانات بشكل كبير؟</summary>
+                <div class="answer">
+                    نعم، تم بناء الموقع ليكون خفيفاً جداً ومتوافقاً مع معايير الأمان الشاملة، مع ضغط ملفات الصوت والشعارات لضمان أفضل جودة بأقل استهلاك ممكن للبيانات.
+                </div>
+            </details>
+
+            <details>
+                <summary>5- لماذا لا يمكنني تحميل الملفات الصوتية مباشرة على أجهزة الأيفون؟</summary>
+                <div class="answer">
+                    يعود ذلك لسياسات نظام (أيفون) الصارمة التي تمنع التحميل المباشر عبر المتصفح في بعض الأحيان؛ ولحل ذلك، يمكنك الضغط مطولاً على رابط التحميل واختيار "تنزيل الملف المرتبط"، أو استخدام متصفح يدعم إدارة الملفات بشكل أفضل.
+                </div>
+            </details>
+
+            <details>
+                <summary>6- المشغل الصوتي يتوقف عند إغلاق الشاشة، ما الحل؟</summary>
+                <div class="answer">
+                    هذه خاصية تقنية في المتصفحات للحفاظ على البطارية؛ ولضمان استمرار التشغيل، ننصح بتثبيت الموقع كـ "تطبيق ويب" على الشاشة الرئيسية، مما يمنحه صلاحيات تشغيل أوسع تشبه التطبيقات الرسمية.
+                </div>
+            </details>
+
+            <details>
+                <summary>7- هل جودة الصوت في المشغل هي الجودة الأصلية؟</summary>
+                <div class="answer">
+                    نعم، يتم رفع الشارات بأعلى جودة ممكنة مع موازنة تقنية تضمن سرعة التشغيل وعدم "التقطيع" حتى في سرعات الإنترنت المتوسطة.
+                </div>
+            </details>
+        </div>
+    </div>
+
     <div class="tg-responsive-wrapper" id="telegramSchedule">
         <script async src="https://telegram.org/js/telegram-widget.js?23" 
                 data-telegram-post="Almajddrama/300" 
@@ -334,6 +515,23 @@
                 data-dark="1">
         </script>
     </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/loveralmajd" target="_blank" class="footer-btn btn-instagram">
+                <i class="fa-brands fa-instagram"></i> انستقرام
+            </a>
+            <a href="https://t.me/Almajddrama" target="_blank" class="footer-btn btn-telegram">
+                <i class="fa-brands fa-telegram"></i> تليجرام
+            </a>
+            <a href="https://forms.gle/6WTCcbFk9sk4PqeG9" target="_blank" class="footer-btn btn-feedback">
+                <i class="fa-solid fa-comments"></i> آرائكم تهمنا
+            </a>
+        </div>
+        <div class="footer-rights">
+            جميع الحقوق محفوظة © 1447 هـ - 2026 م
+        </div>
+    </footer>
 
     <script>
         const channels = {
@@ -355,6 +553,7 @@
         const telegramSchedule = document.getElementById('telegramSchedule');
         const searchInput = document.getElementById('searchInput');
         const favCountLabel = document.getElementById('favCount');
+        const faqSection = document.getElementById('faqSection');
 
         async function fetchAllData() {
             const fetchPromises = Object.keys(channels).map(key => {
@@ -415,6 +614,7 @@
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
                     marketingContainer.style.display = 'none';
+                    faqSection.style.display = 'none';
                     let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                     combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
                     
@@ -428,10 +628,10 @@
                 } else {
                     homeTitles.style.display = 'block';
                     marketingContainer.style.display = 'grid'; 
+                    faqSection.style.display = 'block'; // إظهار الأسئلة الشائعة في الرئيسية فقط
 
                     let uniqueSuggestions = suggestionsData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
 
-                    // خلط عشوائي صائب واختيار 8 مسلسلات فقط بالتساوي
                     const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
                     const selected8 = shuffled.slice(0, 8);
 
@@ -443,6 +643,7 @@
             else if (activeTab === 'fav') {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
                 let favData = combinedData.filter(item => favorites.includes(item.name));
 
@@ -461,6 +662,7 @@
             else {
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
                 let channelData = allDataMap[activeTab] || [];
                 
                 if (searchTerm !== '') {
@@ -507,6 +709,7 @@
                 seriesGrid.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
                 telegramSchedule.style.display = 'flex';
                 mainLogo.src = 'https://files.catbox.moe/ieu2w1.png';
                 return;
