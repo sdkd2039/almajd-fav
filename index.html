@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شارات دراما المجد - المفضلة</title>
+    <title>بوابة دراما المجد الموحدة</title>
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -38,12 +38,52 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 20px; 
+            min-height: 90px;
         }
         .logo {
             width: 100%;
-            max-width: 180px;
+            max-width: 160px;
             height: auto;
             object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        /* شريط الأقسام الستة المتطور */
+        .channel-nav {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            justify-content: flex-start;
+        }
+        /* دعم التوسط في الشاشات الكبيرة */
+        @media (min-width: 900px) {
+            .channel-nav { justify-content: center; }
+        }
+        .channel-nav::-webkit-scrollbar { height: 4px; }
+        .channel-nav::-webkit-scrollbar-thumb { background: var(--card-bg); border-radius: 4px; }
+
+        .nav-tab {
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 2px solid #334155;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .nav-tab.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         .controls { 
@@ -75,29 +115,25 @@
             color: var(--text-muted); 
         }
 
-        .filter-buttons { display: flex; gap: 8px; width: 100%; justify-content: center; }
-        .btn { 
-            flex: 1;
-            max-width: 150px;
-            padding: 8px 12px; 
-            border-radius: 8px; 
-            border: none; 
-            font-weight: 700; 
-            cursor: pointer; 
-            font-size: 0.9rem; 
-            text-align: center;
+        /* عنوان فرعي للأقسام داخل الصفحة الرئيسية */
+        .section-title {
+            max-width: 1100px;
+            margin: 15px auto 10px auto;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--text-color);
+            border-right: 4px solid var(--primary-color);
+            padding-right: 8px;
         }
-        .btn-primary { background-color: var(--primary-color); color: #fff; }
-        .btn-outline { background-color: transparent; border: 2px solid #334155; color: var(--text-color); }
 
-        /* ستايل اللابتوب الموحد (3 أعمدة دائماً) */
+        /* ستايل اللابتوب الموحد والثابت (3 أعمدة دائماً على جميع الأجهزة) */
         .series-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             gap: 12px; 
             width: 100%;
             max-width: 1100px; 
-            margin: 0 auto; 
+            margin: 0 auto 20px auto; 
         }
 
         .card { 
@@ -148,20 +184,14 @@
         }
         .btn-fav.is-fav { color: var(--fav-color); }
 
-        /* تعديل وحل مشكلة محاذاة النصوص والرسائل لتأخذ عرض الشاشة بالكامل وتتوسطها */
         .no-results { 
             text-align: center; 
-            grid-column: 1 / -1; /* يمتد على كامل العرض */
+            grid-column: 1 / -1; 
             width: 100%;
             padding: 40px 15px; 
             color: var(--text-muted); 
             font-size: 1rem; 
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
         }
         .loading { 
             text-align: center; 
@@ -170,6 +200,20 @@
             padding: 30px; 
             font-size: 1rem; 
             color: #0ea5e9; 
+        }
+
+        /* غلاف الجدول اليومي */
+        .tg-responsive-wrapper {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            display: none; 
+            justify-content: center;
+            overflow: hidden;
+        }
+        .tg-responsive-wrapper iframe {
+            width: 100% !important;
+            border: none !important;
         }
 
         @media (min-width: 900px) {
@@ -187,97 +231,112 @@
             .btn-watch { padding: 4px 6px; font-size: 0.65rem; gap: 2px; }
             .btn-fav { font-size: 0.95rem; }
             .logo { max-width: 130px; }
-            .no-results { font-size: 0.9rem; padding: 30px 10px; }
+            .nav-tab { padding: 8px 12px; font-size: 0.8rem; }
+            .section-title { font-size: 0.95rem; margin: 10px 5px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="https://files.catbox.moe/ieu2w1.png" alt="شارات دراما المجد - المفضلة" class="logo">
+        <img id="mainLogo" src="https://files.catbox.moe/ieu2w1.png" alt="شعارات دراما المجد" class="logo">
     </header>
 
-    <div class="controls">
+    <div class="channel-nav">
+        <button class="nav-tab active" onclick="switchChannel('home')"><i class="fa-solid fa-house"></i> الرئيسية</button>
+        <button class="nav-tab" onclick="switchChannel('schedule')"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
+        <button class="nav-tab" onclick="switchChannel('general')"><i class="fa-solid fa-tv"></i> العامة</button>
+        <button class="nav-tab" onclick="switchChannel('kids')"><i class="fa-solid fa-child"></i> الأطفال</button>
+        <button class="nav-tab" onclick="switchChannel('massa')"><i class="fa-solid fa-gem"></i> ماسة</button>
+        <button class="nav-tab" onclick="switchChannel('fav')"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
+    </div>
+
+    <div class="controls" id="controlsBox">
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="اكتب اسم المسلسل للبحث واستماعه..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="ابحث عن أي مسلسل هنا..." autocomplete="off">
         </div>
-        <div class="filter-buttons">
-            <button class="btn btn-primary active" id="btnAll">كل المسلسلات</button>
-            <button class="btn btn-outline" id="btnFavOnly"><i class="fa-solid fa-heart" style="color: var(--fav-color); margin-left: 4px;"></i> المفضلة (<span id="favCount">0</span>)</button>
-        </div>
+    </div>
+
+    <div id="homeTitles" style="display:none;">
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> شارات مقترحة لك (عشوائي)</div>
+        <div class="series-grid" id="randomGrid"></div>
+        <div class="section-title"><i class="fa-solid fa-fire"></i> جميع شارات الشبكة المتاحة</div>
     </div>
 
     <div class="series-grid" id="seriesGrid">
-        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري ربط البيانات...</div>
+        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز البوابة...</div>
+    </div>
+
+    <div class="tg-responsive-wrapper" id="telegramSchedule">
+        <script async src="https://telegram.org/js/telegram-widget.js?23" 
+                data-telegram-post="Almajddrama/300" 
+                data-width="100%" 
+                data-dark="1">
+        </script>
     </div>
 
     <script>
-        const sheetId = '1VkpwSKCoBQ0wiXILLxF6zwR-czCD2z66dMKW9hFh28U';
-        const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+        // روابط قوقل شيت والشعارات الخاصة بكل قناة
+        const channels = {
+            general: {
+                sheetId: '1rHPnFHgZXodViTKG0r9TMtiIEG1HgwIZSHY-BaXSyL8',
+                logo: 'https://files.catbox.moe/8i7vio.png'
+            },
+            kids: {
+                sheetId: '1Fv0aVmC9l_MXb91v9t2C0WruP5G8wVtTW_lwusfNiHY',
+                logo: 'https://files.catbox.moe/h3ytss.webp'
+            },
+            massa: {
+                sheetId: '1_84tvgCQGVy_P5_I6BNIJ7K5jJ1qKxuPiCH7fzALlCQ',
+                logo: 'https://files.catbox.moe/r8i1hh.webp'
+            }
+        };
 
-        let seriesData = [];
+        let activeTab = 'home';
+        let allDataMap = { general: [], kids: [], massa: [] }; // لتخزين كافة البيانات
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
-        
+
+        const mainLogo = document.getElementById('mainLogo');
         const seriesGrid = document.getElementById('seriesGrid');
+        const randomGrid = document.getElementById('randomGrid');
+        const homeTitles = document.getElementById('homeTitles');
+        const controlsBox = document.getElementById('controlsBox');
+        const telegramSchedule = document.getElementById('telegramSchedule');
         const searchInput = document.getElementById('searchInput');
-        const btnAll = document.getElementById('btnAll');
-        const btnFavOnly = document.getElementById('btnFavOnly');
         const favCountLabel = document.getElementById('favCount');
-        let currentFilter = 'all';
 
-        fetch(base)
-            .then(res => res.text())
-            .then(data => {
-                const temp = data.substring(47, data.length - 2);
-                const json = JSON.parse(temp);
-                const rows = json.table.rows;
-                
-                seriesData = rows.map(row => ({
-                    name: row.c[0] ? row.c[0].v : '',
-                    watchLink: row.c[1] ? row.c[1].v : '#',
-                    imgLink: row.c[2] ? row.c[2].v : ''
-                })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
-
-                renderCards();
-            }).catch(err => {
-                seriesGrid.innerHTML = '<div class="no-results">تأكد من ضبط مشاركة الشيت لـ "أي شخص لديه الرابط".</div>';
+        // جلب البيانات من كافة الشيتات دفعة واحدة عند تحميل الصفحة لسرعة استجابة فائقة
+        async function fetchAllData() {
+            const fetchPromises = Object.keys(channels).map(key => {
+                const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:json`;
+                return fetch(url)
+                    .then(res => res.text())
+                    .then(data => {
+                        const temp = data.substring(47, data.length - 2);
+                        const json = JSON.parse(temp);
+                        allDataMap[key] = json.table.rows.map(row => ({
+                            name: row.c[0] ? row.c[0].v : '',
+                            watchLink: row.c[1] ? row.c[1].v : '#',
+                            imgLink: row.c[2] ? row.c[2].v : '',
+                            origin: key
+                        })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
+                    }).catch(err => console.error("Error loading " + key, err));
             });
+
+            await Promise.all(fetchPromises);
+            switchChannel('home'); // فتح الصفحة الرئيسية افتراضياً بعد اكتمال التحميل
+            updateFavCount();
+        }
 
         function updateFavCount() { favCountLabel.textContent = favorites.length; }
 
-        function renderCards() {
-            seriesGrid.innerHTML = '';
-            const searchTerm = searchInput.value.trim().toLowerCase();
-
-            if (currentFilter === 'all' && searchTerm === '') {
-                seriesGrid.innerHTML = `
-                    <div class="no-results">
-                        <i class="fa-solid fa-arrow-up" style="color: var(--primary-color); font-size: 1.3rem;"></i>
-                        <span>اكتب اسم المسلسل في الأعلى وسيظهر لك فوراً!</span>
-                    </div>`;
-                updateFavCount();
-                return;
-            }
-
-            const filteredData = seriesData.filter(item => {
-                const matchesSearch = item.name && item.name.toLowerCase().includes(searchTerm);
-                const matchesFilter = currentFilter === 'all' || favorites.includes(item.name);
-                return matchesSearch && matchesFilter;
-            });
-
-            if (filteredData.length === 0) {
-                seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج.</div>';
-                return;
-            }
-
-            filteredData.forEach(item => {
-                const isFav = favorites.includes(item.name);
-                const card = document.createElement('div');
-                card.className = 'card';
-                const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
-
-                card.innerHTML = `
+        // دالة إنشاء كرت المسلسل بناءً على البيانات المُمررة
+        function createCardHtml(item) {
+            const isFav = favorites.includes(item.name);
+            const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
+            return `
+                <div class="card">
                     <div class="card-img-container"><img src="${finalImg}" alt="${item.name}" loading="lazy"></div>
                     <div class="card-content">
                         <h3 class="card-title">${item.name}</h3>
@@ -287,36 +346,130 @@
                                 <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                             </button>
                         </div>
-                    </div>`;
-                seriesGrid.appendChild(card);
-            });
-            updateFavCount();
+                    </div>
+                </div>`;
+        }
+
+        // دالة رندرة الكروت وعرض المسلسلات بالكامل أو حسب الفلترة والبحث
+        function renderContent() {
+            seriesGrid.innerHTML = '';
+            randomGrid.innerHTML = '';
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            // 1. نظام العرض لقسم الصفحة الرئيسية (يوتيوب)
+            if (activeTab === 'home') {
+                let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
+                
+                // تصفية البحث الفوري إن وُجد
+                if (searchTerm !== '') {
+                    combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                }
+
+                if (combinedData.length === 0) {
+                    seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
+                    return;
+                }
+
+                // توليد قسم "المقترحات العشوائية" فقط عند عدم وجود عملية بحث نشطة لثبات الأداء
+                if (searchTerm === '') {
+                    homeTitles.style.display = 'block';
+                    const shuffled = [...combinedData].sort(() => 0.5 - Math.random());
+                    const randomItems = shuffled.slice(0, 3); // سحب 3 شارات عشوائية في الصدارة بجانب بعضها
+                    randomItems.forEach(item => randomGrid.innerHTML += createCardHtml(item));
+                } else {
+                    homeTitles.style.display = 'none';
+                }
+
+                // عرض بقية المسلسلات كاملة بالأسفل
+                combinedData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+            } 
+            // 2. نظام العرض لقسم المفضلة
+            else if (activeTab === 'fav') {
+                let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
+                let favData = combinedData.filter(item => favorites.includes(item.name));
+
+                // دعم تصفية البحث داخل المفضلة
+                if (searchTerm !== '') {
+                    favData = favData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                }
+
+                // إزالة التكرار إن وُجد نفس الاسم في شيتات مختلفة
+                let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name === value.name) === index);
+
+                if (uniqueFavData.length === 0) {
+                    seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
+                    return;
+                }
+                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+            } 
+            // 3. نظام العرض لقنوات البث الفردية (العامة، الأطفال، ماسة)
+            else {
+                let channelData = allDataMap[activeTab] || [];
+                if (searchTerm !== '') {
+                    channelData = channelData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                }
+
+                if (channelData.length === 0) {
+                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة حالياً أو تطابق البحث.</div>';
+                    return;
+                }
+                channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+            }
         }
 
         window.toggleFavorite = function(name) {
             if (favorites.includes(name)) { favorites = favorites.filter(fav => fav !== name); } 
             else { favorites.push(name); }
             localStorage.setItem('majd_favs', JSON.stringify(favorites));
-            renderCards();
+            updateFavCount();
+            renderContent();
         }
 
-        searchInput.addEventListener('input', renderCards);
-        
-        btnAll.addEventListener('click', () => { 
-            currentFilter = 'all'; 
-            btnAll.classList.replace('btn-outline', 'btn-primary'); 
-            btnFavOnly.classList.replace('btn-primary', 'btn-outline'); 
-            renderCards(); 
-        });
-        
-        btnFavOnly.addEventListener('click', () => { 
-            currentFilter = 'fav'; 
-            btnFavOnly.classList.replace('btn-outline', 'btn-primary'); 
-            btnAll.classList.replace('btn-primary', 'btn-outline'); 
-            renderCards(); 
-        });
+        // دالة التنقل المتقدمة والتحكم في عناصر الشاشة والشعارات بحسب الترتيب المطلوب
+        window.switchChannel = function(tabName) {
+            activeTab = tabName;
+            
+            // تعديل أزرار التنقل النشطة بالتصميم
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            if(event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            } else {
+                // تفعيل تبويب الرئيسية تلقائياً عند أول تشغيل للموقع
+                document.querySelector('.nav-tab').classList.add('active');
+            }
 
-        updateFavCount();
+            // تصفير حقل البحث مؤقتاً عند التنقل لراحة تصفح الزائر
+            searchInput.value = '';
+
+            // إعادة ضبط الشعار وعناصر الرؤية بناءً على القسم النشط
+            homeTitles.style.display = 'none';
+            telegramSchedule.style.display = 'none';
+            controlsBox.style.display = 'flex';
+            seriesGrid.style.display = 'grid';
+
+            if (tabName === 'home') {
+                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; // شعار دراما المجد الافتراضي للرئيسية
+            } else if (tabName === 'schedule') {
+                controlsBox.style.display = 'none';
+                seriesGrid.style.display = 'none';
+                telegramSchedule.style.display = 'flex';
+                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png';
+                return; // إيقاف الرندرة للمسلسلات لأننا بتبويب الجدول
+            } else if (tabName === 'fav') {
+                mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
+            } else {
+                // جلب الشعار المخصص للقناة المحددة من أوبجكت القنوات العلوي
+                mainLogo.src = channels[tabName].logo;
+            }
+
+            renderContent();
+        }
+
+        searchInput.addEventListener('input', renderContent);
+        
+        // إطلاق عملية جلب كافة البيانات الإجمالية فور فتح الموقع
+        fetchAllData();
     </script>
 </body>
 </html>
