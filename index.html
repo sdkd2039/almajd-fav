@@ -640,27 +640,33 @@
                 seriesGrid.innerHTML = '';
                 telegramSchedule.style.display = 'flex';
             }
-            else if (activeTab === 'fav') {
-                controlsBox.style.display = 'flex'; 
-                telegramSchedule.style.display = 'none';
-                homeTitles.style.display = 'none';
-                marketingContainer.style.display = 'none';
-                faqSection.style.display = 'none';
-                let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
-                let favData = combinedData.filter(item => favorites.includes(item.name));
+else if (activeTab === 'fav') {
+    controlsBox.style.display = 'flex'; 
+    telegramSchedule.style.display = 'none';
+    homeTitles.style.display = 'none';
+    marketingContainer.style.display = 'none';
+    faqSection.style.display = 'none';
+    
+    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
+    let favData = combinedData.filter(item => favorites.includes(item.name));
 
-                if (searchTerm !== '') {
-                    favData = favData.filter(item => item.name.toLowerCase().includes(searchTerm));
-                }
+    // التعديل: ترتيب العناصر بناءً على ترتيب ظهورها في مصفوفة favorites (من الأحدث للأقدم)
+    favData.sort((a, b) => {
+        return favorites.indexOf(b.name) - favorites.indexOf(a.name);
+    });
 
-                let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name === value.name) === index);
+    if (searchTerm !== '') {
+        favData = favData.filter(item => item.name.toLowerCase().includes(searchTerm));
+    }
 
-                if (uniqueFavData.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
-                    return;
-                }
-                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-            } 
+    let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name === value.name) === index);
+
+    if (uniqueFavData.length === 0) {
+        seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
+        return;
+    }
+    uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+} 
             else {
                 controlsBox.style.display = 'flex'; 
                 telegramSchedule.style.display = 'none';
