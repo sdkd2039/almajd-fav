@@ -448,7 +448,7 @@
         <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
         <div class="faq-container">
             <details>
-                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد?</summary>
+                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
                 <div class="answer">
                     الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة أو من تطبيق سين؛ لذا جميع الحقوق الفكرية للمحتوى تعود لمالكيها الأصليين.
                 </div>
@@ -518,10 +518,8 @@
     </footer>
 
     <script>
-        // المعرف الصحيح والجديد لملفك الفعلي المنشور
         const SPREADSHEET_ID = '1rL5l72HK8KccymCdpfQE1eITLv-d-MNl0I-fIcpNgPA';
 
-        // ربط القنوات بالأسماء الإنجليزية الصحيحة الموجودة في شريط الأوراق بملفك
         const channels = {
             'general': { sheetId: SPREADSHEET_ID, sheetName: 'general', logo: 'https://files.catbox.moe/8i7vio.png' },
             'kids': { sheetId: SPREADSHEET_ID, sheetName: 'kids', logo: 'https://files.catbox.moe/h3ytss.webp' },
@@ -553,135 +551,93 @@
             }).filter(row => row !== null);
         }
 
-async function fetchAllData() {
-    const fetchPromises = Object.keys(channels).map(key => {
-        const encodedSheetName = encodeURIComponent(channels[key].sheetName);
-        const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheetName}`;
-        
-        return fetch(url)
-            .then(res => res.text())
-            .then(csvText => {
-                const parsedRows = parseCSV(csvText);
+        async function fetchAllData() {
+            const fetchPromises = Object.keys(channels).map(key => {
+                const encodedSheetName = encodeURIComponent(channels[key].sheetName);
+                const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheetName}`;
                 
-                // التعديل هنا: نأخذ الصفوف مباشرة من البداية دون عمل مصفوفة مقلوبة لضمان قراءة الصف الأول كبداية
-                const rows = parsedRows.map(row => ({
-                    name: row[0] ? row[0] : '',
-                    watchLink: row[1] ? row[1] : '#',
-                    imgLink: row[2] ? row[2] : '',
-                    origin: key
-                })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
-                
-                allDataMap[key] = rows;
-            }).catch(err => console.error("Error loading " + key, err));
-    });
-
-    await Promise.all(fetchPromises);
-    
-    // دمج البيانات من القنوات الثلاث الأساسية (العامة، الأطفال، ماسة) لعرضها في قسم "الكل" بشكل عشوائي ومختلط
-    let combinedAllItems = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
-    
-    // تصفية التكرار بناءً على الاسم أو رابط الشارة
-    let uniqueItemsMap = new Map();
-    combinedAllItems.forEach(item => {
-        if (item.name) {
-            uniqueItemsMap.set(item.name, item);
-        }
-    });
-    let uniqueItemsList = Array.from(uniqueItemsMap.values());
-
-    // خلط العناصر بالكامل بشكل عشوائي ومختلط (اثنين انتقال، اثنين آهات.. إلخ) ليظهر قسم "الكل" متنوعاً تماماً
-    currentHomeSuggestions = uniqueItemsList.sort(() => Math.random() - 0.5);
-
-    renderContent(); 
-    updateFavCount();
-}
-
-function renderContent() {
-    seriesGrid.innerHTML = '';
-    const searchTerm = searchInput.value.trim().toLowerCase();
-
-    if (activeTab === 'home') {
-        controlsBox.style.display = 'flex'; 
-        telegramSchedule.style.display = 'none';
-        
-        if (searchTerm !== '') {
-            homeTitles.style.display = 'none';
-            marketingContainer.style.display = 'none';
-            faqSection.style.display = 'none';
-            
-            let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
-            combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
-            
-            let uniqueSearch = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
-            
-            if (uniqueSearch.length === 0) {
-                seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
-                return;
-            }
-            uniqueSearch.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-        } else {
-            homeTitles.style.display = 'block';
-            marketingContainer.style.display = 'grid'; 
-            faqSection.style.display = 'block';
-
-            // عرض القائمة المخلوطة عشوائياً بالكامل في الواجهة الرئيسية دون اقتصار على صنف معين
-            currentHomeSuggestions.forEach(item => {
-                seriesGrid.innerHTML += createCardHtml(item);
+                return fetch(url)
+                    .then(res => res.text())
+                    .then(csvText => {
+                        const parsedRows = parseCSV(csvText);
+                        
+                        // تم التعديل هنا: استخدام .slice(0) بدلاً من .slice(1) لتبدأ القراءة من أول صف مباشرة
+                        const rows = parsedRows.slice(0).map(row => ({
+                            name: row[0] ? row[0] : '',
+                            watchLink: row[1] ? row[1] : '#',
+                            imgLink: row[2] ? row[2] : '',
+                            origin: key
+                        })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
+                        
+                        if (key !== 'suggestions') {
+                            allDataMap[key] = rows.reverse(); 
+                        } else {
+                            allDataMap[key] = rows;
+                        }
+                    }).catch(err => console.error("Error loading " + key, err));
             });
-        }
-    } 
-    // بقية شروط الأقسام (جدول، مفضلة، إلخ) تبقى كما هي ومستقرة تماماً
-    else if (activeTab === 'schedule') {
-        controlsBox.style.display = 'none'; 
-        homeTitles.style.display = 'none';
-        marketingContainer.style.display = 'none';
-        faqSection.style.display = 'none';
-        seriesGrid.innerHTML = '';
-        telegramSchedule.style.display = 'flex';
-    }
-    else if (activeTab === 'fav') {
-        controlsBox.style.display = 'flex'; 
-        telegramSchedule.style.display = 'none';
-        homeTitles.style.display = 'none';
-        marketingContainer.style.display = 'none';
-        faqSection.style.display = 'none';
-        
-        let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
-        let favData = combinedData.filter(item => favorites.includes(item.name));
 
-        favData.sort((a, b) => favorites.indexOf(b.name) - favorites.indexOf(a.name));
+            await Promise.all(fetchPromises);
+            
+            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+            const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
+            currentHomeSuggestions = shuffled.slice(0, 8);
 
-        if (searchTerm !== '') {
-            favData = favData.filter(item => item.name.toLowerCase().includes(searchTerm));
+            renderContent(); 
+            updateFavCount();
         }
 
-        let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name === value.name) === index);
+        function updateFavCount() { favCountLabel.textContent = favorites.length; }
 
-        if (uniqueFavData.length === 0) {
-            seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
-            return;
-        }
-        uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-    } 
-    else {
-        controlsBox.style.display = 'flex'; 
-        telegramSchedule.style.display = 'none';
-        homeTitles.style.display = 'none';
-        marketingContainer.style.display = 'none';
-        faqSection.style.display = 'none';
-        let channelData = allDataMap[activeTab] || [];
-        
-        if (searchTerm !== '') {
-            channelData = channelData.filter(item => item.name.toLowerCase().includes(searchTerm));
+        function createCardHtml(item) {
+            const isFav = favorites.includes(item.name);
+            const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
+            return `
+                <div class="card">
+                    <div class="card-img-container"><img src="${finalImg}" alt="${item.name}" loading="lazy"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">${item.name}</h3>
+                        <div class="card-actions">
+                            <a href="${item.watchLink}" target="_blank" class="btn-watch"><i class="fa-solid fa-play"></i> الشارة</a>
+                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" onclick="toggleFavorite('${item.name.replace(/'/g, "\\'")}')">
+                                <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
         }
 
-        if (channelData.length === 0) {
-            seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
-            return;
-        }
-        channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-    }
-}
+        function renderContent() {
+            seriesGrid.innerHTML = '';
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            if (activeTab === 'home') {
+                controlsBox.style.display = 'flex'; 
+                telegramSchedule.style.display = 'none';
+                if (searchTerm !== '') {
+                    homeTitles.style.display = 'none';
+                    marketingContainer.style.display = 'none';
+                    faqSection.style.display = 'none';
+                    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
+                    combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                    
+                    let uniqueSearch = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+                    
+                    if (uniqueSearch.length === 0) {
+                        seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
+                        return;
+                    }
+                    uniqueSearch.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                } else {
+                    homeTitles.style.display = 'block';
+                    marketingContainer.style.display = 'grid'; 
+                    faqSection.style.display = 'block';
+
+                    currentHomeSuggestions.forEach(item => {
+                        seriesGrid.innerHTML += createCardHtml(item);
+                    });
+                }
+            } 
             else if (activeTab === 'schedule') {
                 controlsBox.style.display = 'none'; 
                 homeTitles.style.display = 'none';
