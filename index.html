@@ -531,7 +531,7 @@
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
         let currentHomeSuggestions = []; 
         
-        // جلب وتنظيف المفضلة لحمايتها من الفراغات المزعجة
+        // جلب المفضلة وتنظيف أسمائها من أي مسافات زائدة
         let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
         favorites = favorites.map(name => name.trim());
 
@@ -610,21 +610,27 @@
                 </div>`;
         }
 
+        // تحسين آلية البحث والفلترة بشكل دقيق
         function renderContent() {
             seriesGrid.innerHTML = '';
+            // تنظيف نص البحث وحذف المسافات الزائدة في البداية والنهاية
             const searchTerm = searchInput.value.trim().toLowerCase();
 
             if (activeTab === 'home') {
                 controlsBox.style.display = 'flex'; 
                 telegramSchedule.style.display = 'none';
+                
                 if (searchTerm !== '') {
                     homeTitles.style.display = 'none';
                     marketingContainer.style.display = 'none';
                     faqSection.style.display = 'none';
-                    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa];
-                    combinedData = combinedData.filter(item => item.name.toLowerCase().includes(searchTerm));
                     
-                    let uniqueSearch = combinedData.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+                    // البحث الشامل في كل القنوات عند استخدام محرك البحث في الرئيسية
+                    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
+                    let searchResults = combinedData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
+                    
+                    // إزالة التكرار في نتائج البحث
+                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.name.trim() === v.name.trim()) === i);
                     
                     if (uniqueSearch.length === 0) {
                         seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
@@ -656,18 +662,14 @@
                 marketingContainer.style.display = 'none';
                 faqSection.style.display = 'none';
                 
-                // دمج شامل لجميع الأقسام للبحث عن عناصر المفضلة وضمان عدم ضياعها
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
                 let favData = combinedData.filter(item => favorites.includes(item.name.trim()));
 
-                // تصفية العناصر المكررة في المفضلة إن وجدت
                 let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name.trim() === value.name.trim()) === index);
-
-                // ترتيب العناصر حسب أحدث إضافة للمفضلة
                 uniqueFavData.sort((a, b) => favorites.indexOf(b.name.trim()) - favorites.indexOf(a.name.trim()));
 
                 if (searchTerm !== '') {
-                    uniqueFavData = uniqueFavData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                    uniqueFavData = uniqueFavData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
                 }
 
                 if (uniqueFavData.length === 0) {
@@ -685,7 +687,7 @@
                 let channelData = allDataMap[activeTab] || [];
                 
                 if (searchTerm !== '') {
-                    channelData = channelData.filter(item => item.name.toLowerCase().includes(searchTerm));
+                    channelData = channelData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
                 }
 
                 if (channelData.length === 0) {
@@ -714,7 +716,7 @@
                 mainLogo.src = 'https://files.catbox.moe/ieu2w1.png'; 
             }
 
-            // تم تصحيح السطر هنا
+            // إفراغ حقل البحث عند نقل الأقسام
             searchInput.value = '';
             renderContent();
         }
@@ -731,6 +733,7 @@
             renderContent();
         }
 
+        // تفعيل استجابة البحث الفورية
         searchInput.addEventListener('input', renderContent);
         window.addEventListener('DOMContentLoaded', fetchAllData);
     </script>
