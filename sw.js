@@ -1,12 +1,14 @@
-const CACHE_NAME = 'almajd-pwa-v3';
+// sw.js - Complete Service Worker
+const CACHE_NAME = 'almajd-drama-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  'https://raw.githubusercontent.com/sdkd2039/almajddrama/refs/heads/main/unnamed.png'
+  'https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
-// تثبيت الـ Service Worker وحفظ الأصول في الكاش
+// Install Event
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -16,7 +18,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// إزالة الملفات القديمة عند التحديث
+// Activate Event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -29,14 +31,27 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  return self.clients.claim();
+  self.clients.claim();
 });
 
-// جلب البيانات من الكاش عند عدم وجود اتصال
+// Fetch Event - Ignores OneSignal requests to avoid conflict
 self.addEventListener('fetch', (event) => {
+  const requestUrl = new URL(event.request.url);
+
+  // Bypass OneSignal requests completely
+  if (
+    requestUrl.hostname.includes('onesignal.com') ||
+    requestUrl.pathname.includes('OneSignalSDKWorker.js')
+  ) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request);
     })
   );
 });
