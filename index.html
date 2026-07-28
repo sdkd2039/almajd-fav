@@ -538,13 +538,23 @@
         }
     </style>
 
+<!-- index.html - Complete Notification Integration for Almajd Drama -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
+    // تهيئة OneSignal وتحديد مسار الـ Service Worker للحد من التعارض
     await OneSignal.init({
       appId: "fade21df-73af-40f2-a536-4adb5e93a386",
+      serviceWorkerPath: "OneSignalSDKWorker.js",
+      serviceWorkerParam: { scope: "/" },
+      allowLocalhostAsSecureOrigin: true
     });
+
+    // إظهار النافذة المنزلقة للزوار الذين لم يحددوا خيار الإشعارات بعد
+    if (Notification.permission === 'default') {
+      await OneSignal.Slidedown.promptPush();
+    }
   });
 </script>
 
@@ -558,7 +568,7 @@
     <div class="channel-nav">
         <button class="nav-tab active" onclick="switchChannel('home')"><i class="fa-solid fa-house"></i> الرئيسية</button>
         <button class="nav-tab" onclick="switchChannel('schedule')"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
-        <button class="nav-tab" onclick="switchChannel('general')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%A3%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784398216085.png" alt="العامة"> العامة</button>
+        <button class="nav-tab" onclick="switchChannel('general')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784398216085.png" alt="العامة"> العامة</button>
         <button class="nav-tab" onclick="switchChannel('kids')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/majd.webp" alt="الأطفال"> الأطفال</button>
         <button class="nav-tab" onclick="switchChannel('massa')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784397948908.png" alt="ماسة"> ماسة</button>
         <button class="nav-tab" onclick="switchChannel('fav')"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
