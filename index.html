@@ -420,7 +420,6 @@
             to { transform: translateY(0); }
         }
 
-        /* رأس النافذة مع زر الإغلاق */
         .pwa-header-row {
             display: flex;
             justify-content: space-between;
@@ -435,7 +434,6 @@
             margin: 0;
         }
 
-        /* زر الإغلاق على شكل مربع مع X باليمين */
         .pwa-close-box {
             background-color: #0f172a;
             border: 1px solid #334155;
@@ -540,17 +538,19 @@
         }
     </style>
 
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "fade21df-73af-40f2-a536-4adb5e93a386",
-      serviceWorkerParam: { scope: "/almajddrama/" },
-      serviceWorkerPath: "OneSignalSDKWorker.js"
-    });
-  });
-</script>
+    <!-- OneSignal SDK Integration for Subfolder Support -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "fade21df-73af-40f2-a536-4adb5e93a386",
+          serviceWorkerParam: { scope: "/almajddrama/" },
+          serviceWorkerPath: "OneSignalSDKWorker.js",
+          allowLocalhostAsSecureOrigin: true
+        });
+      });
+    </script>
 </head>
 <body>
 
@@ -908,7 +908,7 @@
         searchInput.addEventListener('input', renderContent);
         window.addEventListener('DOMContentLoaded', fetchAllData);
 
-        /* --- PWA Logic & Service Worker Integration --- */
+        /* --- PWA Logic Integration --- */
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').then(() => {
                 console.log('Service Worker Active');
