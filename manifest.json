@@ -3,13 +3,13 @@
   "name": "شارات دراما المجد",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png",
+      "src": "https://raw.githubusercontent.com/sdkd2039/almajddrama/refs/heads/main/unnamed.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png",
+      "src": "https://raw.githubusercontent.com/sdkd2039/almajddrama/refs/heads/main/unnamed.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
