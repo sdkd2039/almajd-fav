@@ -1,0 +1,23 @@
+{
+  "short_name": "شارات المجد",
+  "name": "شارات دراما المجد",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "portrait"
+}
