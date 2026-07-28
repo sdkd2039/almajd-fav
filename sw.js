@@ -3,7 +3,7 @@ const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  'https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png'
+  'https://raw.githubusercontent.com/sdkd2039/almajddrama/refs/heads/main/unnamed.png'
 ];
 
 // تثبيت الـ Service Worker وحفظ الأصول في الكاش
