@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شارات دراما المجد</title>
     
-    <!-- PWA & Theme Integration -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
+<!-- أيقونة رأس الصفحة (Favicon) لتظهر بدلاً من شكل الكرة الأرضية -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png">
+
+<!-- ربط ملف الـ Manifest -->
+<link rel="manifest" href="./manifest.json">
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -406,15 +410,16 @@
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
         }
-
-        .pwa-header-img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    
+.pwa-install-banner img, 
+.install-modal-header img {
+  max-width: 120px; /* تصغير حجم الصورة */
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  padding: 8px;
+}
 
         .pwa-title {
             font-size: 1.15rem;
