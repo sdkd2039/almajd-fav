@@ -540,12 +540,14 @@
         }
     </style>
 
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "fade21df-73af-40f2-a536-4adb5e93a386",
+      serviceWorkerParam: { scope: "/almajddrama/" },
+      serviceWorkerPath: "OneSignalSDKWorker.js"
     });
   });
 </script>
