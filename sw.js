@@ -1,4 +1,4 @@
-const CACHE_NAME = 'almajd-pwa-v1';
+const CACHE_NAME = 'almajd-pwa-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -6,7 +6,7 @@ const ASSETS_TO_CACHE = [
   'https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png'
 ];
 
-// تثبيت الـ Service Worker وتخزين الأصول الشائعة
+// تثبيت الـ Service Worker وحفظ الأصول في الكاش
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// تفعيل وتحديث الـ Cache
+// إزالة الملفات القديمة عند التحديث
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -32,7 +32,7 @@ self.addEventListener('activate', (event) => {
   return self.clients.claim();
 });
 
-// جلب الملفات من الكاش أولاً ثم من الشبكة
+// جلب البيانات من الكاش عند عدم وجود اتصال
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
