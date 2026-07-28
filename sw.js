@@ -1,4 +1,4 @@
-// sw.js - Complete Service Worker with OneSignal Integration
+// sw.js - Complete Service Worker
 importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js');
 
 const CACHE_NAME = 'almajd-drama-v1';
@@ -40,7 +40,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
 
-  // Bypass OneSignal API requests
+  // Bypass OneSignal system requests from Cache
   if (
     requestUrl.hostname.includes('onesignal.com') ||
     requestUrl.pathname.includes('OneSignalSDKWorker.js')
