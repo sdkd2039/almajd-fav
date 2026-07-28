@@ -538,33 +538,16 @@
         }
     </style>
 
-    <!-- OneSignal SDK Integration (v16 Corrected) -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        // تهيئة خدمة OneSignal
-        await OneSignal.init({
-          appId: "fade21df-73af-40f2-a536-4adb5e93a386",
-          serviceWorkerParam: { scope: "/almajddrama/" },
-          serviceWorkerPath: "OneSignalSDKWorker.js",
-          allowLocalhostAsSecureOrigin: true,
-        });
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "fade21df-73af-40f2-a536-4adb5e93a386",
+    });
+  });
+</script>
 
-        // إظهار نافذة الطلب المنزلقة (Slidedown) تلقائياً إذا لم يكن الزائر مشتركاً أو رافضاً
-        if (!OneSignal.Notifications.permission) {
-          await OneSignal.Slidedown.promptPush({
-            force: false,
-            text: {
-              header: "تفعيل الإشعارات",
-              message: "هل ترغب في استقبال إشعارات عند إضافة شارات ومسلسلات جديدة؟",
-              acceptButton: "سماح",
-              cancelButton: "لاحقاً"
-            }
-          });
-        }
-      });
-    </script>
 </head>
 <body>
 
