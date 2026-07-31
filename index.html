@@ -713,8 +713,21 @@
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
         let currentHomeSuggestions = []; 
         
-        let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
-        favorites = favorites.map(name => name.trim());
+        // جلب وحماية بيانات المفضلة وتنظيف أي تكرارات
+        function loadFavorites() {
+            let rawFavs = localStorage.getItem('majd_favs');
+            let parsed = [];
+            try {
+                parsed = rawFavs ? JSON.parse(rawFavs) : [];
+            } catch (e) {
+                parsed = [];
+            }
+            if (!Array.isArray(parsed)) parsed = [];
+            // إزالة المسافات الزائدة والتكرار
+            return Array.from(new Set(parsed.map(name => typeof name === 'string' ? name.trim() : '').filter(Boolean)));
+        }
+
+        let favorites = loadFavorites();
 
         const mainLogo = document.getElementById('mainLogo');
         const seriesGrid = document.getElementById('seriesGrid');
@@ -770,7 +783,10 @@
             updateFavCount();
         }
 
-        function updateFavCount() { favCountLabel.textContent = favorites.length; }
+        function updateFavCount() { 
+            favorites = loadFavorites(); 
+            favCountLabel.textContent = favorites.length; 
+        }
 
         function createCardHtml(item) {
             const cleanName = item.name.trim();
@@ -792,6 +808,7 @@
         }
 
         function renderContent() {
+            favorites = loadFavorites();
             seriesGrid.innerHTML = '';
             const searchTerm = searchInput.value.trim().toLowerCase();
 
@@ -899,11 +916,14 @@
 
         function toggleFavorite(name) {
             const cleanName = name.trim();
+            favorites = loadFavorites();
+            
             if (favorites.includes(cleanName)) {
                 favorites = favorites.filter(item => item !== cleanName);
             } else {
                 favorites.push(cleanName);
             }
+            
             localStorage.setItem('majd_favs', JSON.stringify(favorites));
             updateFavCount();
             renderContent();
