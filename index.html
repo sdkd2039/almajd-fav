@@ -239,7 +239,9 @@
             color: var(--text-muted); 
             font-size: 1.15rem; 
             cursor: pointer; 
+            transition: color 0.2s ease, transform 0.2s ease;
         }
+        .btn-fav:hover { transform: scale(1.15); }
         .btn-fav.is-fav { color: var(--fav-color); }
 
         .no-results { 
@@ -715,9 +717,9 @@
         let activeTab = 'home';
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
         let currentHomeSuggestions = []; 
-        
-        let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
-        favorites = favorites.map(name => name.trim());
+
+        // جلب قائمة المفضلة من LocalStorage لتعمل مدى الحياة
+        let favoritesList = JSON.parse(localStorage.getItem('majd_favs_v2')) || [];
 
         const mainLogo = document.getElementById('mainLogo');
         const seriesGrid = document.getElementById('seriesGrid');
@@ -728,6 +730,19 @@
         const searchInput = document.getElementById('searchInput');
         const favCountLabel = document.getElementById('favCount');
         const faqSection = document.getElementById('faqSection');
+
+        // إنشاء معرف فريد ونظيف لكل عنصر للحد من أخطاء أسماء المفضلة
+        function generateCleanId(str) {
+            if (!str) return 'id-' + Math.random().toString(36).substr(2, 9);
+            let cleaned = str.trim().toLowerCase();
+            let hash = 0;
+            for (let i = 0; i < cleaned.length; i++) {
+                let char = cleaned.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0;
+            }
+            return 'id-' + Math.abs(hash);
+        }
 
         function parseCSV(text) {
             let lines = text.split('\n');
@@ -748,12 +763,13 @@
                     .then(csvText => {
                         const parsedRows = parseCSV(csvText);
                         
-                        const rows = parsedRows.slice(0).map(row => ({
-                            name: row[0] ? row[0].trim() : '',
-                            watchLink: row[1] ? row[1].trim() : '#',
-                            imgLink: row[2] ? row[2].trim() : '',
-                            origin: key
-                        })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
+                        const rows = parsedRows.slice(0).map(row => {
+                            const name = row[0] ? row[0].trim() : '';
+                            const watchLink = row[1] ? row[1].trim() : '#';
+                            const imgLink = row[2] ? row[2].trim() : '';
+                            const id = generateCleanId(name); // إنشاء المعرف الفريد
+                            return { id, name, watchLink, imgLink, origin: key };
+                        }).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
                         
                         if (key !== 'suggestions') {
                             allDataMap[key] = rows.reverse(); 
@@ -765,19 +781,49 @@
 
             await Promise.all(fetchPromises);
             
-            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.id === v.id) === i);
             const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
             currentHomeSuggestions = shuffled.slice(0, 8);
 
+            updateFavBadge();
             renderContent(); 
-            updateFavCount();
         }
 
-        function updateFavCount() { favCountLabel.textContent = favorites.length; }
+        // تحديث عداد المفضلة
+        function updateFavBadge() { 
+            if (favCountLabel) {
+                favCountLabel.textContent = favoritesList.length; 
+            }
+        }
+
+        // التبديل والإضافة إلى المفضلة مع حفظها لمدى الحياة في LocalStorage
+        function toggleFavorite(id) {
+            if (favoritesList.includes(id)) {
+                favoritesList = favoritesList.filter(favId => favId !== id);
+            } else {
+                favoritesList.push(id);
+            }
+            localStorage.setItem('majd_favs_v2', JSON.stringify(favoritesList));
+            updateFavBadge();
+            
+            if (activeTab === 'fav') {
+                renderContent();
+            } else {
+                const favBtns = document.querySelectorAll(`[data-fav-id="${id}"]`);
+                const isFav = favoritesList.includes(id);
+                favBtns.forEach(btn => {
+                    btn.classList.toggle('is-fav', isFav);
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        icon.className = isFav ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+                    }
+                });
+            }
+        }
 
         function createCardHtml(item) {
             const cleanName = item.name.trim();
-            const isFav = favorites.includes(cleanName);
+            const isFav = favoritesList.includes(item.id);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
             return `
                 <div class="card">
@@ -786,7 +832,7 @@
                         <h3 class="card-title">${cleanName}</h3>
                         <div class="card-actions">
                             <a href="${item.watchLink}" target="_blank" class="btn-watch"><i class="fa-solid fa-play"></i> الشارة</a>
-                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" onclick="toggleFavorite('${cleanName.replace(/'/g, "\\'")}')">
+                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" data-fav-id="${item.id}" onclick="toggleFavorite('${item.id}')">
                                 <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                             </button>
                         </div>
@@ -810,7 +856,7 @@
                     let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
                     let searchResults = combinedData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
                     
-                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.name.trim() === v.name.trim()) === i);
+                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.id === v.id) === i);
                     
                     if (uniqueSearch.length === 0) {
                         seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
@@ -843,20 +889,22 @@
                 faqSection.style.display = 'none';
                 
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
-                let favData = combinedData.filter(item => favorites.includes(item.name.trim()));
-
-                let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name.trim() === value.name.trim()) === index);
-                uniqueFavData.sort((a, b) => favorites.indexOf(b.name.trim()) - favorites.indexOf(a.name.trim()));
+                
+                // تجميع الخريطة وتجنب التكرار
+                let uniquePoolMap = new Map();
+                combinedData.forEach(item => uniquePoolMap.set(item.id, item));
+                
+                let favData = favoritesList.map(id => uniquePoolMap.get(id)).filter(Boolean).reverse();
 
                 if (searchTerm !== '') {
-                    uniqueFavData = uniqueFavData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
+                    favData = favData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
                 }
 
-                if (uniqueFavData.length === 0) {
+                if (favData.length === 0) {
                     seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
                     return;
                 }
-                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                favData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             } 
             else {
                 controlsBox.style.display = 'flex'; 
@@ -897,18 +945,6 @@
             }
 
             searchInput.value = '';
-            renderContent();
-        }
-
-        function toggleFavorite(name) {
-            const cleanName = name.trim();
-            if (favorites.includes(cleanName)) {
-                favorites = favorites.filter(item => item !== cleanName);
-            } else {
-                favorites.push(cleanName);
-            }
-            localStorage.setItem('majd_favs', JSON.stringify(favorites));
-            updateFavCount();
             renderContent();
         }
 
