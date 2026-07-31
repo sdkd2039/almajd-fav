@@ -7,30 +7,29 @@
     
     <link rel="icon" type="image/png" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
 
-    <!-- أيقونات iOS للشاشة الرئيسية -->
+    <!-- أيقونات الآيفون والآيباد للشاشة الرئيسية -->
     <link rel="apple-touch-icon" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
     <link rel="apple-touch-icon" sizes="152x152" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
     <link rel="apple-touch-icon" sizes="167x167" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
 
-    <!-- إعدادات PWA وتجربة المستخدم -->
+    <!-- إعدادات إضافية لتجربة التطبيق في نظام iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="شارات دراما المجد">
 
     <!-- ربط ملف الـ Manifest -->
     <link rel="manifest" href="./manifest.json">
-
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <!-- الخطوط والأيقونات -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         :root { 
             --bg-color: #0f172a; 
@@ -45,7 +44,6 @@
             --accent-gold: #ffd700;
             --accent-cyan: #00d4ff;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
         
         body { 
@@ -62,7 +60,6 @@
             margin-bottom: 20px; 
             min-height: 90px;
         }
-
         .logo {
             width: 100%;
             max-width: 160px;
@@ -81,11 +78,9 @@
             justify-content: flex-start;
             align-items: center;
         }
-
         @media (min-width: 900px) {
             .channel-nav { justify-content: center; }
         }
-
         .channel-nav::-webkit-scrollbar { height: 4px; }
         .channel-nav::-webkit-scrollbar-thumb { background: var(--card-bg); border-radius: 4px; }
 
@@ -105,14 +100,12 @@
             transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         .nav-tab img {
             width: 22px;
             height: 22px;
             object-fit: contain;
             border-radius: 4px;
         }
-
         .nav-tab.active {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
@@ -138,13 +131,7 @@
             color: var(--text-color); 
             font-size: 1rem; 
             outline: none; 
-            transition: border-color 0.2s ease;
         }
-
-        .search-container input:focus {
-            border-color: var(--primary-color);
-        }
-
         .search-container i { 
             position: absolute; 
             top: 50%; 
@@ -176,22 +163,11 @@
             transition: transform 0.2s ease;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
         .ad-card:hover { transform: translateY(-2px); }
         .ad-card-1 { background: var(--ad-bg-1); }
         .ad-card-2 { background: var(--ad-bg-2); }
         
-        .ad-badge { 
-            background-color: rgba(0, 0, 0, 0.3); 
-            color: #fff; 
-            border: 1px solid rgba(255,255,255,0.4); 
-            font-size: 0.7rem; 
-            font-weight: 900; 
-            padding: 3px 10px; 
-            border-radius: 4px; 
-            margin-bottom: 8px; 
-        }
-
+        .ad-badge { background-color: rgba(0, 0, 0, 0.3); color: #fff; border: 1px solid rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 900; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
         .ad-title { font-size: 1.1rem; font-weight: 900; margin-bottom: 5px; }
         .ad-desc { font-size: 0.8rem; opacity: 0.95; line-height: 1.4; }
         .ad-link-btn { margin-top: 12px; background: #fff; color: #0f172a; padding: 5px 16px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
@@ -226,9 +202,8 @@
             flex-direction: column; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         .card-img-container { width: 100%; height: 140px; background-color: #0f172a; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card img { width: 100%; height: 100% ; object-fit: cover; }
         
         .card-content { 
             padding: 10px; 
@@ -237,7 +212,6 @@
             gap: 8px; 
             flex-grow: 1; 
         }
-
         .card-title { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
         .card-actions { 
             display: flex; 
@@ -265,10 +239,7 @@
             color: var(--text-muted); 
             font-size: 1.15rem; 
             cursor: pointer; 
-            transition: color 0.2s ease, transform 0.2s ease;
         }
-
-        .btn-fav:hover { transform: scale(1.15); }
         .btn-fav.is-fav { color: var(--fav-color); }
 
         .no-results { 
@@ -279,7 +250,6 @@
             color: var(--text-muted); 
             font-size: 1rem; 
         }
-
         .loading { 
             text-align: center; 
             grid-column: 1 / -1; 
@@ -297,7 +267,6 @@
             justify-content: center;
             overflow: hidden;
         }
-
         .tg-responsive-wrapper iframe {
             width: 100% !important;
             border: none !important;
@@ -309,12 +278,22 @@
             margin: 40px auto 20px auto;
             padding: 0 10px;
         }
-
+        .faq-title {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.5px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
         .faq-container {
             max-width: 900px;
             margin: auto;
         }
-
         details {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -325,13 +304,11 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
-
         details[open] {
             background: var(--card-bg);
             border-color: rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
-
         summary {
             font-weight: 700;
             font-size: 1rem;
@@ -344,7 +321,6 @@
             display: flex;
             align-items: center;
         }
-
         summary::-webkit-details-marker { display: none; }
         summary::before {
             content: "✦";
@@ -354,12 +330,10 @@
             color: var(--accent-gold);
             font-size: 16px;
         }
-
         details[open] summary::before {
             transform: rotate(45deg);
             color: var(--accent-cyan);
         }
-
         .answer {
             margin-top: 12px;
             font-size: 0.95rem;
@@ -369,7 +343,6 @@
             padding-top: 12px;
             font-weight: 400;
         }
-
         details:hover {
             background: rgba(255, 255, 255, 0.08);
         }
@@ -386,20 +359,17 @@
             gap: 15px;
             align-items: center;
         }
-
         .footer-rights {
             font-size: 0.9rem;
             color: var(--text-muted);
             font-weight: 500;
         }
-
         .footer-links {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .footer-btn {
             display: inline-flex;
             align-items: center;
@@ -412,7 +382,6 @@
             color: #fff;
             transition: all 0.2s ease;
         }
-
         .footer-btn.btn-instagram { background-color: #e1306c; }
         .footer-btn.btn-telegram { background-color: #0088cc; }
         .footer-btn.btn-feedback { background-color: #ff6600; }
@@ -543,7 +512,9 @@
         
         @media (max-width: 600px) {
             body { padding: 8px; }
+            
             .series-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            
             .card-content { padding: 8px; gap: 6px; }
             .card-title { font-size: 0.85rem; }
             .card-img-container { height: 95px; }
@@ -558,6 +529,7 @@
             .ad-title { font-size: 1.05rem; }
             .ad-desc { font-size: 0.78rem; }
 
+            .faq-title { font-size: 1.2rem; }
             summary { font-size: 0.9rem; }
             .answer { font-size: 0.85rem; }
             footer { gap: 12px; margin-top: 35px; }
@@ -566,7 +538,7 @@
         }
     </style>
 
-    <!-- OneSignal Notifications -->
+    <!-- OneSignal Integration -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -586,460 +558,391 @@
 </head>
 <body>
 
-<header>
-    <img id="mainLogo" src="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png" alt="شعار دراما المجد" class="logo">
-</header>
+    <header>
+        <img id="mainLogo" src="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png" alt="شعار دراما المجد" class="logo">
+    </header>
 
-<div class="channel-nav" id="channelNav">
-    <button class="nav-tab active" data-tab="home"><i class="fa-solid fa-house"></i> الرئيسية</button>
-    <button class="nav-tab" data-tab="schedule"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
-    <button class="nav-tab" data-tab="general"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784398216085.png" alt="عام"> العامة</button>
-    <button class="nav-tab" data-tab="kids"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/majd.webp" alt="أطفال"> الأطفال</button>
-    <button class="nav-tab" data-tab="massa"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784397948908.png" alt="ماسة"> ماسة</button>
-    <button class="nav-tab" data-tab="fav"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
-</div>
-
-<div class="controls" id="controlsBox">
-    <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="ابحث عن أي مسلسل هنا..." autocomplete="off">
+    <div class="channel-nav">
+        <button class="nav-tab active" onclick="switchChannel('home')"><i class="fa-solid fa-house"></i> الرئيسية</button>
+        <button class="nav-tab" onclick="switchChannel('schedule')"><i class="fa-solid fa-calendar-days"></i> الجدول اليومي</button>
+        <button class="nav-tab" onclick="switchChannel('general')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784398216085.png" alt="العامة"> العامة</button>
+        <button class="nav-tab" onclick="switchChannel('kids')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/majd.webp" alt="الأطفال"> الأطفال</button>
+        <button class="nav-tab" onclick="switchChannel('massa')"><img src="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/1784397948908.png" alt="ماسة"> ماسة</button>
+        <button class="nav-tab" onclick="switchChannel('fav')"><i class="fa-solid fa-heart" style="color: var(--fav-color);"></i> المفضلة (<span id="favCount">0</span>)</button>
     </div>
-</div>
 
-<div id="homeTitles" style="display:none;">
-    <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك</div>
-</div>
-
-<div class="series-grid" id="seriesGrid">
-    <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>
-</div>
-
-<div class="marketing-container" id="marketingContainer" style="display: none;">
-    <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
-        <div class="ad-badge">اشتـــــــــرك الآن</div>
-        <div class="ad-title">اشترك الآن في رسيفر المجد 9 الجديد</div>
-        <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبطرق دفع سهلة وموثوقة.</div>
-        <div class="ad-link-btn">اضغط هنا للاشتراك <i class="fa-solid fa-arrow-left"></i></div>
-    </a>
-    <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
-        <div class="ad-badge">تجديد فوري</div>
-        <div class="ad-title">جدد اشتراكك الحالي خلال ثوانٍ</div>
-        <div class="ad-desc">لا توقف متعة العائلة.. بضغطة زر واحدة جدد اشتراكك بشكل أسرع.</div>
-        <div class="ad-link-btn">اضغط هنا للتجديد <i class="fa-solid fa-arrow-left"></i></div>
-    </a>
-</div>
-
-<div class="faq-section" id="faqSection" style="display: none;">
-    <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
-    <div class="faq-container">
-        <details>
-            <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
-            <div class="answer">الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة.</div>
-        </details>
-        <details>
-            <summary>2- لماذا قد لا تعمل بعض الروابط أو الملفات الصوتية؟</summary>
-            <div class="answer">يعتمد الموقع على بروتوكولات تشغيل سريعة، وفي حال واجهت مشكلة، تأكد من تحديث المتصفح لديك أو استخدام متصفح حديث.</div>
-        </details>
-        <details>
-            <summary>3- كيف يمكنني اقتراح للموقع أو طلب شارة مفقودة؟</summary>
-            <div class="answer">نرحب دائماً بطلبات الجمهور؛ يمكنك التواصل معنا عبر حسابات التواصل الموضحة في الأسفل.</div>
-        </details>
-        <details>
-            <summary>4- هل الموقع آمن للاستخدام ولا يستهلك البيانات بشكل كبير؟</summary>
-            <div class="answer">نعم، تم تحسين الموقع ليكون خفيفاً جداً ومتوافقاً مع معايير الأمان مع ضغط الصور والملفات لتوفير البيانات.</div>
-        </details>
-        <details>
-            <summary>5- المشغل الصوتي يتوقف عند إغلاق الشاشة، ما الحل؟</summary>
-            <div class="answer">هذه خاصية من النظام للحفاظ على البطارية، ولضمان استمرار التشغيل ننصح بتثبيت الموقع كـ "تطبيق PWA".</div>
-        </details>
-        <details>
-            <summary>6- هل جودة الصوت في المشغل هي الجودة الأصلية؟</summary>
-            <div class="answer">نعم، يتم رفع الشارات بأعلى جودة ممكنة مع موازنة تقنية تضمن سرعة التشغيل وعدم التقطيع.</div>
-        </details>
-    </div>
-</div>
-
-<div class="tg-responsive-wrapper" id="telegramSchedule">
-    <script async src="https://telegram.org/js/telegram-widget.js?23" 
-            data-telegram-post="Almajddrama/300" 
-            data-width="100%" 
-            data-dark="1">
-    </script>
-</div>
-
-<footer>
-    <div class="footer-links">
-        <a href="https://www.instagram.com/loveralmajd" target="_blank" class="footer-btn btn-instagram">
-            <i class="fa-brands fa-instagram"></i> انستقرام
-        </a>
-        <a href="https://t.me/Almajddrama" target="_blank" class="footer-btn btn-telegram">
-            <i class="fa-brands fa-telegram"></i> تليجرام
-        </a>
-        <a href="https://forms.gle/6WTCcbFk9sk4PqeG9" target="_blank" class="footer-btn btn-feedback">
-            <i class="fa-solid fa-comments"></i> آرائكــــــــم
-        </a>
-    </div>
-    <div class="footer-rights">
-        جميع الحقوق محفوظة ©
-        <br> شارات دراما المجد 1448 هـ - 2026 م
-    </div>
-</footer>
-
-<!-- PWA Modal UI -->
-<div id="pwaModalOverlay" class="pwa-modal-overlay">
-    <div class="pwa-modal">
-        <div class="pwa-header-row">
-            <button class="pwa-close-box" id="closeBtn">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="pwa-title">التثبيت وإنشاء اختصار</div>
+    <div class="controls" id="controlsBox">
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن أي مسلسل هنا..." autocomplete="off">
         </div>
-        
-        <div class="pwa-option" id="installBtn">
-            <div class="pwa-option-left">
-                <div class="pwa-icon">
-                    <i class="fa-solid fa-download"></i>
+    </div>
+
+    <div id="homeTitles" style="display:none;">
+        <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #f59e0b;"></i> شارات مقترحة لك</div>
+    </div>
+
+    <div class="series-grid" id="seriesGrid">
+        <div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>
+    </div>
+
+    <div class="marketing-container" id="marketingContainer" style="display: none;">
+        <a href="https://store.almajdtv.com" target="_blank" class="ad-card ad-card-1">
+            <div class="ad-badge">اشتـــــــــرك الآن</div>
+            <div class="ad-title">اشترك الآن في رسيفر المجد 9 الجديد</div>
+            <div class="ad-desc">تابع باقتك المفضلة وقنواتك الآمنة بأعلى دقة وبطرق دفع سهلة وموثوقة.</div>
+            <div class="ad-link-btn">اضغط هنا للاشتراك <i class="fa-solid fa-arrow-left"></i></div>
+        </a>
+        <a href="https://portal.almajdtv.com/ords/f?p=109:3" target="_blank" class="ad-card ad-card-2">
+            <div class="ad-badge">تجديد فوري</div>
+            <div class="ad-title">جدد اشتراكك الحالي خلال ثوانٍ</div>
+            <div class="ad-desc">لا توقف متعة العائلة.. بضغطة زر واحدة جدد اشتراكك بشكل أسرع.</div>
+            <div class="ad-link-btn">اضغط هنا للتجديد <i class="fa-solid fa-arrow-left"></i></div>
+        </a>
+    </div>
+
+    <div class="faq-section" id="faqSection" style="display: none;">
+        <div class="section-title"><i class="fa-solid fa-circle-question" style="color: #00d4ff;"></i> الأسئلة الشائعة</div>
+        <div class="faq-container">
+            <details>
+                <summary>1- هل الموقع يتبع بشكل رسمي لشبكة المجد؟</summary>
+                <div class="answer">
+                    الموقع هو من إدارة الجمهور مخصصة لأرشفة شارات مسلسلات المجد وتسهيل الوصول إليها، وليس منصة رسمية تابعة للشبكة أو من تطبيق سين؛ لذا جميع الحقوق الفكرية للمحتوى تعود لمالكيها الأصليين.
                 </div>
-                <div class="pwa-details">
-                    <div class="title">تثبيت التطبيق</div>
-                    <div class="subtitle">إضافة شارات دراما المجد كـ تطبيق تفاعلي</div>
+            </details>
+
+            <details>
+                <summary>2- لماذا قد لا تعمل بعض الروابط أو الملفات الصوتية؟</summary>
+                <div class="answer">
+                    يعتمد الموقع على بروتوكولات تشغيل سريعة، وفي حال واجهت مشكلة في التشغيل، تأكد من تحديث المتصفح لديك أو تحقق من استقرار اتصال الإنترنت لديك؛ حيث أن بعض القيود التقنية قد تمنع التشغيل في المتصفحات القديمة.
                 </div>
+            </details>
+
+            <details>
+                <summary>3- كيف يمكنني اقتراح للموقع أو طلب شارة مفقودة؟</summary>
+                <div class="answer">
+                    نحن نرحب دائماً بطلبات الجمهور؛ يمكنك التواصل معنا عبر حسابات التواصل الموضحة في الأسفل (التذبيل) من خلالها تقديم طلباتك أو الإبلاغ عن أي خلل تقني.
+                </div>
+            </details>
+
+            <details>
+                <summary>4- هل الموقع آمن للاستخدام ولا يستهلك البيانات بشكل كبير؟</summary>
+                <div class="answer">
+                    نحن نضمن دائماً أن يكون الموقع خفيفاً جداً ومتوافقاً مع معايير الأمان الشاملة، مع ضغط ملفات الصوت والشعارات لضمان أفضل جودة بأقل استهلاك ممكن للبيانات.
+                </div>
+            </details>
+
+            <details>
+                <summary>5- المشغل الصوتي يتوقف عند إغلاق الشاشة، ما الحل؟</summary>
+                <div class="answer">
+                    هذه خاصية تقنية في المتصفحات للحفاظ على البطارية؛ ولضمان استمرار التشغيل، ننصح بتثبيت الموقع كـ "تطبيق ويب" على الشاشة الرئيسية، مما يمنحه صلاحيات تشغيل أوسع تشبه التطبيقات الرسمية.
+                </div>
+            </details>
+
+            <details>
+                <summary>6- هل جودة الصوت في المشغل هي الجودة الأصلية؟</summary>
+                <div class="answer">
+                    نعم، يتم رفع الشارات بأعلى جودة ممكنة مع موازنة تقنية تضمن سرعة التشغيل وعدم "التقطيع" حتى في سرعات الإنترنت المتوسطة.
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div class="tg-responsive-wrapper" id="telegramSchedule">
+        <script async src="https://telegram.org/js/telegram-widget.js?23" 
+                data-telegram-post="Almajddrama/300" 
+                data-width="100%" 
+                data-dark="1">
+        </script>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/loveralmajd" target="_blank" class="footer-btn btn-instagram">
+                <i class="fa-brands fa-instagram"></i> انستقرام
+            </a>
+            <a href="https://t.me/Almajddrama" target="_blank" class="footer-btn btn-telegram">
+                <i class="fa-brands fa-telegram"></i> تليجرام
+            </a>
+            <a href="https://forms.gle/6WTCcbFk9sk4PqeG9" target="_blank" class="footer-btn btn-feedback">
+                <i class="fa-solid fa-comments"></i> آرائكــــــــم
+            </a>
+        </div>
+        <div class="footer-rights">
+            جميع الحقوق محفوظة ©
+            <br> شارات دراما المجد 1448 هـ - 2026 م
+        </div>
+    </footer>
+
+    <!-- PWA Installation Modal UI -->
+    <div id="pwaModalOverlay" class="pwa-modal-overlay">
+        <div class="pwa-modal">
+            <div class="pwa-header-row">
+                <button class="pwa-close-box" id="closeBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="pwa-title">التثبيت وإنشاء اختصار</div>
             </div>
-            <div class="pwa-arrow"><i class="fa-solid fa-chevron-left"></i></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const SPREADSHEET_ID = '1rL5l72HK8KccymCdpfQE1eITLv-d-MNl0I-fIcpNgPA';
-
-    const channels = {
-        'general': { sheetId: SPREADSHEET_ID, sheetName: 'general', logo: 'https://files.catbox.moe/8i7vio.png' },
-        'kids': { sheetId: SPREADSHEET_ID, sheetName: 'kids', logo: 'https://files.catbox.moe/h3ytss.webp' },
-        'massa': { sheetId: SPREADSHEET_ID, sheetName: 'massa', logo: 'https://files.catbox.moe/6h91vy.png' },
-        'suggestions': { sheetId: SPREADSHEET_ID, sheetName: 'suggestions' }
-    };
-
-    let activeTab = 'home';
-    let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
-    let currentHomeSuggestions = []; 
-
-    const STORAGE_KEY = 'majd_series_favs_v3';
-
-    let favoritesList = [];
-    try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        favoritesList = stored ? JSON.parse(stored) : [];
-        if (!Array.isArray(favoritesList)) favoritesList = [];
-    } catch (e) {
-        favoritesList = [];
-    }
-
-    const mainLogo = document.getElementById('mainLogo');
-    const seriesGrid = document.getElementById('seriesGrid');
-    const homeTitles = document.getElementById('homeTitles');
-    const controlsBox = document.getElementById('controlsBox');
-    const marketingContainer = document.getElementById('marketingContainer');
-    const telegramSchedule = document.getElementById('telegramSchedule');
-    const searchInput = document.getElementById('searchInput');
-    const favCountLabel = document.getElementById('favCount');
-    const faqSection = document.getElementById('faqSection');
-    const channelNav = document.getElementById('channelNav');
-
-    // تنظيف النصوص للحصول على مفتاح فريد وثابت
-    function getCleanKey(name) {
-        if (!name) return '';
-        return String(name)
-            .normalize('NFKC')
-            .trim()
-            .toLowerCase()
-            .replace(/[\u0610-\u061A\u064B-\u065F\u06D6-\u06ED]/g, '')
-            .replace(/[^\p{L}\p{N}\s]+/gu, '')
-            .replace(/\s+/g, ' ');
-    }
-
-    // دالة آمنة لمعالجة نصوص CSV مع مراعاة علامات التنصيص والفاصلات
-    function parseCSV(text) {
-        const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-        const lines = normalized.split('\n');
-        return lines.map(line => {
-            if (!line.trim()) return null;
-            let row = [];
-            let inQuotes = false;
-            let current = '';
-            for (let i = 0; i < line.length; i++) {
-                let char = line[i];
-                if (char === '"' && line[i + 1] === '"') {
-                    current += '"';
-                    i++;
-                } else if (char === '"') {
-                    inQuotes = !inQuotes;
-                } else if (char === ',' && !inQuotes) {
-                    row.push(current.trim());
-                    current = '';
-                } else {
-                    current += char;
-                }
-            }
-            row.push(current.trim());
-            return row;
-        }).filter(row => row !== null && row.length > 0);
-    }
-
-    // حماية ضد ثغرات XSS
-    function escapeHtml(str) {
-        if (!str) return '';
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
-    async function fetchAllData() {
-        seriesGrid.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات وتجهيز الموقع... </div>';
-        
-        const fetchPromises = Object.keys(channels).map(key => {
-            const encodedSheetName = encodeURIComponent(channels[key].sheetName);
-            const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheetName}`;
             
-            return fetch(url)
-                .then(res => res.text())
-                .then(csvText => {
-                    const parsedRows = parseCSV(csvText);
-                    const rows = parsedRows.slice(1).map(row => {
-                        const name = row[0] ? row[0].replace(/^"|"$/g, '').trim() : '';
-                        const watchLink = row[1] ? row[1].replace(/^"|"$/g, '').trim() : '#';
-                        const imgLink = row[2] ? row[2].replace(/^"|"$/g, '').trim() : '';
-                        return { key: getCleanKey(name), name, watchLink, imgLink, origin: key };
-                    }).filter(item => item.name !== '');
-                    
-                    allDataMap[key] = rows;
-                }).catch(err => {
-                    console.error("خطأ أثناء جلب " + key, err);
-                    allDataMap[key] = [];
-                });
-        });
-
-        await Promise.all(fetchPromises);
-
-        currentHomeSuggestions = [...allDataMap.suggestions].slice(0, 8);
-
-        updateFavBadge();
-        renderContent(); 
-    }
-
-    function updateFavBadge() { 
-        if (favCountLabel) favCountLabel.textContent = favoritesList.length; 
-    }
-
-    function toggleFavoriteByKey(key) {
-        if (!key) return;
-        const index = favoritesList.indexOf(key);
-        if (index > -1) {
-            favoritesList.splice(index, 1);
-        } else {
-            favoritesList.push(key);
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(favoritesList));
-        updateFavBadge();
-        renderContent();
-    }
-
-    function createCardHtml(item) {
-        const itemKey = item.key || getCleanKey(item.name);
-        const isFav = favoritesList.includes(itemKey);
-        const finalImg = item.imgLink && item.imgLink !== '-' ? escapeHtml(item.imgLink) : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
-        const safeName = escapeHtml(item.name);
-        const safeWatchLink = escapeHtml(item.watchLink || '#');
-
-        return `
-            <div class="card" data-key="${itemKey}">
-                <div class="card-img-container"><img src="${finalImg}" alt="${safeName}" loading="lazy"></div>
-                <div class="card-content">
-                    <h3 class="card-title">${safeName}</h3>
-                    <div class="card-actions">
-                        <a href="${safeWatchLink}" target="_blank" rel="noopener noreferrer" class="btn-watch"><i class="fa-solid fa-play"></i> الشارة</a>
-                        <button type="button" class="btn-fav ${isFav ? 'is-fav' : ''}" data-key="${itemKey}">
-                            <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
-                        </button>
+            <div class="pwa-option" id="installBtn">
+                <div class="pwa-option-left">
+                    <div class="pwa-icon">
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+                    <div class="pwa-details">
+                        <div class="title">تثبيت التطبيق</div>
+                        <div class="subtitle">إضافة شارات دراما المجد كـ تطبيق تفاعلي</div>
                     </div>
                 </div>
-            </div>`;
-    }
+                <div class="pwa-arrow"><i class="fa-solid fa-chevron-left"></i></div>
+            </div>
+        </div>
+    </div>
 
-    function renderContent() {
-        seriesGrid.innerHTML = '';
-        const searchTerm = searchInput.value.trim().toLowerCase();
+    <script>
+        const SPREADSHEET_ID = '1rL5l72HK8KccymCdpfQE1eITLv-d-MNl0I-fIcpNgPA';
 
-        if (activeTab === 'home') {
-            controlsBox.style.display = 'flex'; 
-            telegramSchedule.style.display = 'none';
+        const channels = {
+            'general': { sheetId: SPREADSHEET_ID, sheetName: 'general', logo: 'https://files.catbox.moe/8i7vio.png' },
+            'kids': { sheetId: SPREADSHEET_ID, sheetName: 'kids', logo: 'https://files.catbox.moe/h3ytss.webp' },
+            'massa': { sheetId: SPREADSHEET_ID, sheetName: 'masah', logo: 'https://files.catbox.moe/6h91vy.png' },
+            'suggestions': { sheetId: SPREADSHEET_ID, sheetName: 'data' }
+        };
+
+        let activeTab = 'home';
+        let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
+        let currentHomeSuggestions = []; 
+        
+        let favorites = JSON.parse(localStorage.getItem('majd_favs')) || [];
+        favorites = favorites.map(name => name.trim());
+
+        const mainLogo = document.getElementById('mainLogo');
+        const seriesGrid = document.getElementById('seriesGrid');
+        const homeTitles = document.getElementById('homeTitles');
+        const controlsBox = document.getElementById('controlsBox');
+        const marketingContainer = document.getElementById('marketingContainer');
+        const telegramSchedule = document.getElementById('telegramSchedule');
+        const searchInput = document.getElementById('searchInput');
+        const favCountLabel = document.getElementById('favCount');
+        const faqSection = document.getElementById('faqSection');
+
+        function parseCSV(text) {
+            let lines = text.split('\n');
+            return lines.map(line => {
+                let result = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                if (!result) return null;
+                return result.map(val => val.replace(/^"|"$/g, '').trim());
+            }).filter(row => row !== null);
+        }
+
+        async function fetchAllData() {
+            const fetchPromises = Object.keys(channels).map(key => {
+                const encodedSheetName = encodeURIComponent(channels[key].sheetName);
+                const url = `https://docs.google.com/spreadsheets/d/${channels[key].sheetId}/gviz/tq?tqx=out:csv&sheet=${encodedSheetName}`;
+                
+                return fetch(url)
+                    .then(res => res.text())
+                    .then(csvText => {
+                        const parsedRows = parseCSV(csvText);
+                        
+                        const rows = parsedRows.slice(0).map(row => ({
+                            name: row[0] ? row[0].trim() : '',
+                            watchLink: row[1] ? row[1].trim() : '#',
+                            imgLink: row[2] ? row[2].trim() : '',
+                            origin: key
+                        })).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
+                        
+                        if (key !== 'suggestions') {
+                            allDataMap[key] = rows.reverse(); 
+                        } else {
+                            allDataMap[key] = rows;
+                        }
+                    }).catch(err => console.error("Error loading " + key, err));
+            });
+
+            await Promise.all(fetchPromises);
             
-            if (searchTerm !== '') {
+            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.name === v.name) === i);
+            const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
+            currentHomeSuggestions = shuffled.slice(0, 8);
+
+            renderContent(); 
+            updateFavCount();
+        }
+
+        function updateFavCount() { favCountLabel.textContent = favorites.length; }
+
+        function createCardHtml(item) {
+            const cleanName = item.name.trim();
+            const isFav = favorites.includes(cleanName);
+            const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
+            return `
+                <div class="card">
+                    <div class="card-img-container"><img src="${finalImg}" alt="${cleanName}" loading="lazy"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">${cleanName}</h3>
+                        <div class="card-actions">
+                            <a href="${item.watchLink}" target="_blank" class="btn-watch"><i class="fa-solid fa-play"></i> الشارة</a>
+                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" onclick="toggleFavorite('${cleanName.replace(/'/g, "\\'")}')">
+                                <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderContent() {
+            seriesGrid.innerHTML = '';
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            if (activeTab === 'home') {
+                controlsBox.style.display = 'flex'; 
+                telegramSchedule.style.display = 'none';
+                
+                if (searchTerm !== '') {
+                    homeTitles.style.display = 'none';
+                    marketingContainer.style.display = 'none';
+                    faqSection.style.display = 'none';
+                    
+                    let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
+                    let searchResults = combinedData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
+                    
+                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.name.trim() === v.name.trim()) === i);
+                    
+                    if (uniqueSearch.length === 0) {
+                        seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
+                        return;
+                    }
+                    uniqueSearch.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+                } else {
+                    homeTitles.style.display = 'block';
+                    marketingContainer.style.display = 'grid'; 
+                    faqSection.style.display = 'block';
+
+                    currentHomeSuggestions.forEach(item => {
+                        seriesGrid.innerHTML += createCardHtml(item);
+                    });
+                }
+            } 
+            else if (activeTab === 'schedule') {
+                controlsBox.style.display = 'none'; 
+                homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
+                seriesGrid.innerHTML = '';
+                telegramSchedule.style.display = 'flex';
+            }
+            else if (activeTab === 'fav') {
+                controlsBox.style.display = 'flex'; 
+                telegramSchedule.style.display = 'none';
                 homeTitles.style.display = 'none';
                 marketingContainer.style.display = 'none';
                 faqSection.style.display = 'none';
                 
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
-                let searchResults = combinedData.filter(item => item.name && item.name.trim().toLowerCase().includes(searchTerm));
-                
-                let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.key === v.key) === i);
-                
-                if (uniqueSearch.length === 0) {
-                    seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
+                let favData = combinedData.filter(item => favorites.includes(item.name.trim()));
+
+                let uniqueFavData = favData.filter((value, index, self) => self.findIndex(t => t.name.trim() === value.name.trim()) === index);
+                uniqueFavData.sort((a, b) => favorites.indexOf(b.name.trim()) - favorites.indexOf(a.name.trim()));
+
+                if (searchTerm !== '') {
+                    uniqueFavData = uniqueFavData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
+                }
+
+                if (uniqueFavData.length === 0) {
+                    seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
                     return;
                 }
-                uniqueSearch.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-            } else {
-                homeTitles.style.display = 'block';
-                marketingContainer.style.display = 'grid'; 
-                faqSection.style.display = 'block';
+                uniqueFavData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
+            } 
+            else {
+                controlsBox.style.display = 'flex'; 
+                telegramSchedule.style.display = 'none';
+                homeTitles.style.display = 'none';
+                marketingContainer.style.display = 'none';
+                faqSection.style.display = 'none';
+                let channelData = allDataMap[activeTab] || [];
+                
+                if (searchTerm !== '') {
+                    channelData = channelData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
+                }
 
-                currentHomeSuggestions.forEach(item => {
-                    seriesGrid.innerHTML += createCardHtml(item);
-                });
+                if (channelData.length === 0) {
+                    seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
+                    return;
+                }
+                channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
             }
-        } 
-        else if (activeTab === 'schedule') {
-            controlsBox.style.display = 'none'; 
-            homeTitles.style.display = 'none';
-            marketingContainer.style.display = 'none';
-            faqSection.style.display = 'none';
-            seriesGrid.innerHTML = '';
-            telegramSchedule.style.display = 'flex';
         }
-        else if (activeTab === 'fav') {
-            controlsBox.style.display = 'flex'; 
-            telegramSchedule.style.display = 'none';
-            homeTitles.style.display = 'none';
-            marketingContainer.style.display = 'none';
-            faqSection.style.display = 'none';
+
+        function switchChannel(tabName) {
+            activeTab = tabName;
             
-            let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
-            
-            let uniqueMap = new Map();
-            combinedData.forEach(item => {
-                const k = item.key || getCleanKey(item.name || '');
-                if (!uniqueMap.has(k)) uniqueMap.set(k, item);
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                if(tab.getAttribute('onclick').includes(`'${tabName}'`)) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
             });
 
-            let favData = favoritesList.map(key => uniqueMap.get(key)).filter(Boolean).reverse();
-
-            if (searchTerm !== '') {
-                favData = favData.filter(item => item.name && item.name.trim().toLowerCase().includes(searchTerm));
-            }
-
-            if (favData.length === 0) {
-                seriesGrid.innerHTML = '<div class="no-results">قائمة المفضلة فارغة حالياً أو لا تطابق البحث.</div>';
-                return;
-            }
-            favData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-        } 
-        else {
-            controlsBox.style.display = 'flex'; 
-            telegramSchedule.style.display = 'none';
-            homeTitles.style.display = 'none';
-            marketingContainer.style.display = 'none';
-            faqSection.style.display = 'none';
-            let channelData = allDataMap[activeTab] || [];
-            
-            if (searchTerm !== '') {
-                channelData = channelData.filter(item => item.name && item.name.trim().toLowerCase().includes(searchTerm));
-            }
-
-            if (channelData.length === 0) {
-                seriesGrid.innerHTML = '<div class="no-results">لا توجد مسلسلات متوفرة تطابق البحث.</div>';
-                return;
-            }
-            channelData.forEach(item => seriesGrid.innerHTML += createCardHtml(item));
-        }
-    }
-
-    function switchChannel(tabName) {
-        activeTab = tabName;
-        
-        const tabs = document.querySelectorAll('.nav-tab');
-        tabs.forEach(tab => {
-            if (tab.getAttribute('data-tab') === tabName) {
-                tab.classList.add('active');
+            if (channels[tabName] && channels[tabName].logo) {
+                mainLogo.src = channels[tabName].logo;
             } else {
-                tab.classList.remove('active');
+                mainLogo.src = 'https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png'; 
             }
-        });
 
-        if (channels[tabName] && channels[tabName].logo) {
-            mainLogo.src = channels[tabName].logo;
-        } else {
-            mainLogo.src = 'https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png'; 
+            searchInput.value = '';
+            renderContent();
         }
 
-        searchInput.value = '';
-        renderContent();
-    }
+        function toggleFavorite(name) {
+            const cleanName = name.trim();
+            if (favorites.includes(cleanName)) {
+                favorites = favorites.filter(item => item !== cleanName);
+            } else {
+                favorites.push(cleanName);
+            }
+            localStorage.setItem('majd_favs', JSON.stringify(favorites));
+            updateFavCount();
+            renderContent();
+        }
 
-    // الأحداث (Event Listeners)
-    channelNav.addEventListener('click', (e) => {
-        const btn = e.target.closest('.nav-tab');
-        if (!btn) return;
-        const tab = btn.getAttribute('data-tab');
-        if (tab) switchChannel(tab);
-    });
+        searchInput.addEventListener('input', renderContent);
+        window.addEventListener('DOMContentLoaded', fetchAllData);
 
-    seriesGrid.addEventListener('click', (e) => {
-        const favBtn = e.target.closest('.btn-fav');
-        if (!favBtn) return;
-        const key = favBtn.getAttribute('data-key');
-        if (!key) return;
-        toggleFavoriteByKey(key);
-    });
+        /* --- PWA Logic Integration --- */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(() => {
+                console.log('Service Worker Active');
+            });
+        }
 
-    searchInput.addEventListener('input', renderContent);
+        let deferredPrompt;
+        const pwaModalOverlay = document.getElementById('pwaModalOverlay');
+        const installBtn = document.getElementById('installBtn');
+        const closeBtn = document.getElementById('closeBtn');
 
-    window.switchChannel = switchChannel;
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => {
-            console.log('Service Worker Active');
-        }).catch(err => {
-            console.warn('فشل تسجيل Service Worker', err);
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            pwaModalOverlay.style.display = 'flex';
         });
-    }
 
-    // PWA Modal Handling
-    let deferredPrompt;
-    const pwaModalOverlay = document.getElementById('pwaModalOverlay');
-    const installBtn = document.getElementById('installBtn');
-    const closeBtn = document.getElementById('closeBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        pwaModalOverlay.style.display = 'flex';
-    });
-
-    if (installBtn) {
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User prompt outcome: ${outcome}`);
                 deferredPrompt = null;
                 pwaModalOverlay.style.display = 'none';
             }
         });
-    }
 
-    if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             pwaModalOverlay.style.display = 'none';
         });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        updateFavBadge();
-        fetchAllData();
-    });
-</script>
+    </script>
 </body>
 </html>
