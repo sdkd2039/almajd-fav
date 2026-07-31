@@ -545,7 +545,6 @@
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
-    // تهيئة OneSignal وتحديد مسار الـ Service Worker للحد من التعارض
     await OneSignal.init({
       appId: "fade21df-73af-40f2-a536-4adb5e93a386",
       serviceWorkerPath: "OneSignalSDKWorker.js",
@@ -553,7 +552,6 @@
       allowLocalhostAsSecureOrigin: true
     });
 
-    // إظهار النافذة المنزلقة للزوار الذين لم يحددوا خيار الإشعارات بعد
     if (Notification.permission === 'default') {
       await OneSignal.Slidedown.promptPush();
     }
@@ -718,8 +716,13 @@
         let allDataMap = { general: [], kids: [], massa: [], suggestions: [] }; 
         let currentHomeSuggestions = []; 
 
-        // جلب قائمة المفضلة من LocalStorage لتعمل مدى الحياة
-        let favoritesList = JSON.parse(localStorage.getItem('majd_favs_v2')) || [];
+        // جلب قائمة المفضلة المخزنة باستخدام أسماء المسلسلات كمعرفات ثابته مدى الحياة
+        let favoritesList = [];
+        try {
+            favoritesList = JSON.parse(localStorage.getItem('majd_series_favs_v3')) || [];
+        } catch (e) {
+            favoritesList = [];
+        }
 
         const mainLogo = document.getElementById('mainLogo');
         const seriesGrid = document.getElementById('seriesGrid');
@@ -731,17 +734,10 @@
         const favCountLabel = document.getElementById('favCount');
         const faqSection = document.getElementById('faqSection');
 
-        // إنشاء معرف فريد ونظيف لكل عنصر للحد من أخطاء أسماء المفضلة
-        function generateCleanId(str) {
-            if (!str) return 'id-' + Math.random().toString(36).substr(2, 9);
-            let cleaned = str.trim().toLowerCase();
-            let hash = 0;
-            for (let i = 0; i < cleaned.length; i++) {
-                let char = cleaned.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash |= 0;
-            }
-            return 'id-' + Math.abs(hash);
+        // تنظيف الاسم لاستخدامه كـ ID ثابت ومطابق تماماً دائماً
+        function getCleanKey(name) {
+            if (!name) return '';
+            return name.trim().toLowerCase().replace(/\s+/g, ' ');
         }
 
         function parseCSV(text) {
@@ -767,8 +763,8 @@
                             const name = row[0] ? row[0].trim() : '';
                             const watchLink = row[1] ? row[1].trim() : '#';
                             const imgLink = row[2] ? row[2].trim() : '';
-                            const id = generateCleanId(name); // إنشاء المعرف الفريد
-                            return { id, name, watchLink, imgLink, origin: key };
+                            const cleanKey = getCleanKey(name);
+                            return { key: cleanKey, name, watchLink, imgLink, origin: key };
                         }).filter(item => item.name !== '' && item.name !== 'اسم المسلسل');
                         
                         if (key !== 'suggestions') {
@@ -781,7 +777,7 @@
 
             await Promise.all(fetchPromises);
             
-            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.id === v.id) === i);
+            let uniqueSuggestions = allDataMap.suggestions.filter((v, i, s) => s.findIndex(t => t.key === v.key) === i);
             const shuffled = uniqueSuggestions.sort(() => 0.5 - Math.random());
             currentHomeSuggestions = shuffled.slice(0, 8);
 
@@ -789,29 +785,33 @@
             renderContent(); 
         }
 
-        // تحديث عداد المفضلة
         function updateFavBadge() { 
             if (favCountLabel) {
                 favCountLabel.textContent = favoritesList.length; 
             }
         }
 
-        // التبديل والإضافة إلى المفضلة مع حفظها لمدى الحياة في LocalStorage
-        function toggleFavorite(id) {
-            if (favoritesList.includes(id)) {
-                favoritesList = favoritesList.filter(favId => favId !== id);
+        // إضافة أو حذف المفضلة ثم التخزين الفوري في جهاز المستخدم
+        function toggleFavorite(key) {
+            if (!key) return;
+            
+            const index = favoritesList.indexOf(key);
+            if (index > -1) {
+                favoritesList.splice(index, 1);
             } else {
-                favoritesList.push(id);
+                favoritesList.push(key);
             }
-            localStorage.setItem('majd_favs_v2', JSON.stringify(favoritesList));
+            
+            localStorage.setItem('majd_series_favs_v3', JSON.stringify(favoritesList));
             updateFavBadge();
             
             if (activeTab === 'fav') {
                 renderContent();
             } else {
-                const favBtns = document.querySelectorAll(`[data-fav-id="${id}"]`);
-                const isFav = favoritesList.includes(id);
-                favBtns.forEach(btn => {
+                // تحديث شكل أزرار القلب لجميع البطاقات التي تحمل نفس اسم المسلسل
+                const isFav = favoritesList.includes(key);
+                const buttons = document.querySelectorAll(`button[data-key="${CSS.escape(key)}"]`);
+                buttons.forEach(btn => {
                     btn.classList.toggle('is-fav', isFav);
                     const icon = btn.querySelector('i');
                     if (icon) {
@@ -823,8 +823,10 @@
 
         function createCardHtml(item) {
             const cleanName = item.name.trim();
-            const isFav = favoritesList.includes(item.id);
+            const itemKey = item.key;
+            const isFav = favoritesList.includes(itemKey);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
+            
             return `
                 <div class="card">
                     <div class="card-img-container"><img src="${finalImg}" alt="${cleanName}" loading="lazy"></div>
@@ -832,7 +834,7 @@
                         <h3 class="card-title">${cleanName}</h3>
                         <div class="card-actions">
                             <a href="${item.watchLink}" target="_blank" class="btn-watch"><i class="fa-solid fa-play"></i> الشارة</a>
-                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" data-fav-id="${item.id}" onclick="toggleFavorite('${item.id}')">
+                            <button class="btn-fav ${isFav ? 'is-fav' : ''}" data-key="${itemKey}" onclick="toggleFavorite('${itemKey.replace(/'/g, "\\'")}')">
                                 <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                             </button>
                         </div>
@@ -856,7 +858,7 @@
                     let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
                     let searchResults = combinedData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
                     
-                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.id === v.id) === i);
+                    let uniqueSearch = searchResults.filter((v, i, s) => s.findIndex(t => t.key === v.key) === i);
                     
                     if (uniqueSearch.length === 0) {
                         seriesGrid.innerHTML = '<div class="no-results">لم يتم العثور على نتائج للبحث.</div>';
@@ -890,11 +892,15 @@
                 
                 let combinedData = [...allDataMap.general, ...allDataMap.kids, ...allDataMap.massa, ...allDataMap.suggestions];
                 
-                // تجميع الخريطة وتجنب التكرار
-                let uniquePoolMap = new Map();
-                combinedData.forEach(item => uniquePoolMap.set(item.id, item));
-                
-                let favData = favoritesList.map(id => uniquePoolMap.get(id)).filter(Boolean).reverse();
+                // خريطة لتجميع المسلسلات بدون تكرار
+                let uniqueMap = new Map();
+                combinedData.forEach(item => {
+                    if (!uniqueMap.has(item.key)) {
+                        uniqueMap.set(item.key, item);
+                    }
+                });
+
+                let favData = favoritesList.map(key => uniqueMap.get(key)).filter(Boolean).reverse();
 
                 if (searchTerm !== '') {
                     favData = favData.filter(item => item.name.trim().toLowerCase().includes(searchTerm));
