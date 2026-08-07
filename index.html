@@ -538,26 +538,6 @@
         }
     </style>
 
-    <!-- OneSignal Integration -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "fade21df-73af-40f2-a536-4adb5e93a386",
-          serviceWorkerPath: "OneSignalSDKWorker.js",
-          serviceWorkerParam: { scope: "/" },
-          allowLocalhostAsSecureOrigin: true
-        });
-
-        if (Notification.permission === 'default') {
-          await OneSignal.Slidedown.promptPush();
-        }
-      });
-    </script>
-</head>
-<body>
-
     <header>
         <img id="mainLogo" src="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png" alt="شعار دراما المجد" class="logo">
     </header>
