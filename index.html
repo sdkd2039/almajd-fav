@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شارات دراما المجد</title>
     
+<!-- وسوم عامة تدعم جميع المنصات -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="شارات دراما المجد">
+    <meta property="og:description" content="أرشفة متكاملة لشارات مسلسلات شبكة المجد.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png">
+    <meta property="og:url" content="https://almajddrama.theworkpc.com/">
+    <meta property="og:site_name" content="شارات دراما المجد">
+
+    <!-- وسوم خاصة بمنصة إكس (تويتر) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="شارات دراما المجد">
+    <meta name="twitter:description" content="أرشفة متكاملة لشارات مسلسلات شبكة المجد.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png">
+    
     <link rel="icon" type="image/png" href="https://file.garden/aluU_B9tLXBUY8kP/%D8%B4%D8%B9%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B5%D9%88%D8%B1/unnamed.png">
 
     <!-- أيقونات الآيفون والآيباد للشاشة الرئيسية -->
@@ -768,12 +782,16 @@
             favCountLabel.textContent = favorites.length; 
         }
 
-        function createCardHtml(item) {
+function createCardHtml(item, index) {
             const cleanName = item.name.trim();
             const isFav = favorites.includes(cleanName);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
+            
+            // ميزة توليد رابط فريد لكل مسلسل
+            const shareUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(cleanName)}`;
+            
             return `
-                <div class="card">
+                <div class="card" id="card-${index}">
                     <div class="card-img-container"><img src="${finalImg}" alt="${cleanName}" loading="lazy"></div>
                     <div class="card-content">
                         <h3 class="card-title">${cleanName}</h3>
@@ -943,6 +961,16 @@
         closeBtn.addEventListener('click', () => {
             pwaModalOverlay.style.display = 'none';
         });
-    </script>
+<script>
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('id');
+    if (itemId) {
+        searchInput.value = itemId;
+        renderContent();
+    }
+});
+</script>
+    
 </body>
 </html>
