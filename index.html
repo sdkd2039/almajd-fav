@@ -782,13 +782,12 @@
             favCountLabel.textContent = favorites.length; 
         }
 
-        function createCardHtml(item, index) {
+        function createCardHtml(item) {
             const cleanName = item.name.trim();
             const isFav = favorites.includes(cleanName);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
-            
             return `
-                <div class="card" id="card-${index}">
+                <div class="card">
                     <div class="card-img-container"><img src="${finalImg}" alt="${cleanName}" loading="lazy"></div>
                     <div class="card-content">
                         <h3 class="card-title">${cleanName}</h3>
@@ -898,7 +897,6 @@
                     tab.classList.remove('active');
                 }
             });
-
             if (channels[tabName] && channels[tabName].logo) {
                 mainLogo.src = channels[tabName].logo;
             } else {
@@ -959,15 +957,6 @@
             pwaModalOverlay.style.display = 'none';
         });
 
-        // تفعيل ميزة فتح المسلسل مباشرة عبر الرابط ID
-        window.addEventListener('load', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const itemId = urlParams.get('id');
-            if (itemId) {
-                searchInput.value = itemId;
-                renderContent(); // سيقوم بالبحث تلقائياً عن المسلسل
-            }
-        });
     </script>
 </body>
 </html>
