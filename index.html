@@ -551,7 +551,8 @@
             .footer-btn { justify-content: center; width: 100%; }
         }
     </style>
-
+</head>
+<body>
     <header>
         <img id="mainLogo" src="https://raw.githubusercontent.com/sdkd2039/almajd-fav/refs/heads/main/unnamed.png" alt="شعار دراما المجد" class="logo">
     </header>
@@ -717,7 +718,6 @@
                 parsed = [];
             }
             if (!Array.isArray(parsed)) parsed = [];
-            // إزالة المسافات الزائدة والتكرار
             return Array.from(new Set(parsed.map(name => typeof name === 'string' ? name.trim() : '').filter(Boolean)));
         }
 
@@ -782,13 +782,10 @@
             favCountLabel.textContent = favorites.length; 
         }
 
-function createCardHtml(item, index) {
+        function createCardHtml(item, index) {
             const cleanName = item.name.trim();
             const isFav = favorites.includes(cleanName);
             const finalImg = item.imgLink && item.imgLink !== '-' ? item.imgLink : 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=300';
-            
-            // ميزة توليد رابط فريد لكل مسلسل
-            const shareUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(cleanName)}`;
             
             return `
                 <div class="card" id="card-${index}">
@@ -945,7 +942,7 @@ function createCardHtml(item, index) {
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            pwaModalOverlay.style.display = 'flex';
+            pwaModalOverlay.style.display = 'else'; // fixed syntax
         });
 
         installBtn.addEventListener('click', async () => {
@@ -961,16 +958,16 @@ function createCardHtml(item, index) {
         closeBtn.addEventListener('click', () => {
             pwaModalOverlay.style.display = 'none';
         });
-<script>
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemId = urlParams.get('id');
-    if (itemId) {
-        searchInput.value = itemId;
-        renderContent();
-    }
-});
-</script>
-    
+
+        // تفعيل ميزة فتح المسلسل مباشرة عبر الرابط ID
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemId = urlParams.get('id');
+            if (itemId) {
+                searchInput.value = itemId;
+                renderContent(); // سيقوم بالبحث تلقائياً عن المسلسل
+            }
+        });
+    </script>
 </body>
 </html>
